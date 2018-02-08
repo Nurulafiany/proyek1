@@ -19,6 +19,9 @@ public class Role {
         this.Status = Status;
     }
 
+    public Role() {
+    }
+
     public int getIdRole() {
         return idRole;
     }

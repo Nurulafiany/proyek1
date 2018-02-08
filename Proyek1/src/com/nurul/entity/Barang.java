@@ -11,13 +11,13 @@ package com.nurul.entity;
  */
 public class Barang {
 
-    String idBarang;
+    int idBarang;
     String NamaBrg;
     Double HargaBeli;
     Double HargaJual;
     int Stock;
 
-    public Barang(String idBarang, String NamaBrg, Double HargaBeli,
+    public Barang(int idBarang, String NamaBrg, Double HargaBeli,
             Double HargaJual, int Stock) {
         this.idBarang = idBarang;
         this.NamaBrg = NamaBrg;
@@ -26,11 +26,11 @@ public class Barang {
         this.Stock = Stock;
     }
 
-    public String getIdBarang() {
+    public int getIdBarang() {
         return idBarang;
     }
 
-    public void setIdBarang(String idBarang) {
+    public void setIdBarang(int idBarang) {
         this.idBarang = idBarang;
     }
 

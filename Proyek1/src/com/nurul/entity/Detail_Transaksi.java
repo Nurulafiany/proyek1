@@ -11,12 +11,15 @@ package com.nurul.entity;
  */
 public class Detail_Transaksi {
 
-    String Transaksi_idTransaksi;
-    String Barang_idBarang;
+    int Transaksi_idTransaksi;
+    int Barang_idBarang;
     int QtyBarang;
     Double HargaJual;
 
-    public Detail_Transaksi(String Transaksi_idTransaksi, String Barang_idBarang,
+    public Detail_Transaksi() {
+    }
+
+    public Detail_Transaksi(int Transaksi_idTransaksi, int Barang_idBarang,
             int QtyBarang, Double HargaJual) {
         this.Transaksi_idTransaksi = Transaksi_idTransaksi;
         this.Barang_idBarang = Barang_idBarang;
@@ -24,19 +27,19 @@ public class Detail_Transaksi {
         this.HargaJual = HargaJual;
     }
 
-    public String getTransaksi_idTransaksi() {
+    public int getTransaksi_idTransaksi() {
         return Transaksi_idTransaksi;
     }
 
-    public void setTransaksi_idTransaksi(String Transaksi_idTransaksi) {
+    public void setTransaksi_idTransaksi(int Transaksi_idTransaksi) {
         this.Transaksi_idTransaksi = Transaksi_idTransaksi;
     }
 
-    public String getBarang_idBarang() {
+    public int getBarang_idBarang() {
         return Barang_idBarang;
     }
 
-    public void setBarang_idBarang(String Barang_idBarang) {
+    public void setBarang_idBarang(int Barang_idBarang) {
         this.Barang_idBarang = Barang_idBarang;
     }
 

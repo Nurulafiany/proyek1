@@ -13,24 +13,26 @@ import java.util.Date;
  */
 public class Transaksi {
 
-    String idTransaksi;
+    int idTransaksi;
     Date Tanggal;
-    Double TotalHarga;
-    String User_idUser;
+    int pembayaran;
+    int User_idUser;
 
-    public Transaksi(String idTransaksi, Date Tanggal, Double TotalHarga,
-            String User_idUser) {
+    public Transaksi() {
+    }
+
+    public Transaksi(int idTransaksi, Date Tanggal, int pembayaran,
+            int User_idUser) {
         this.idTransaksi = idTransaksi;
         this.Tanggal = Tanggal;
-        this.TotalHarga = TotalHarga;
         this.User_idUser = User_idUser;
     }
 
-    public String getIdTransaksi() {
+    public int getIdTransaksi() {
         return idTransaksi;
     }
 
-    public void setIdTransaksi(String idTransaksi) {
+    public void setIdTransaksi(int idTransaksi) {
         this.idTransaksi = idTransaksi;
     }
 
@@ -42,20 +44,20 @@ public class Transaksi {
         this.Tanggal = Tanggal;
     }
 
-    public Double getTotalHarga() {
-        return TotalHarga;
-    }
-
-    public void setTotalHarga(Double TotalHarga) {
-        this.TotalHarga = TotalHarga;
-    }
-
-    public String getUser_idUser() {
+    public int getUser_idUser() {
         return User_idUser;
     }
 
-    public void setUser_idUser(String User_idUser) {
+    public void setUser_idUser(int User_idUser) {
         this.User_idUser = User_idUser;
+    }
+
+    public int getPembayaran() {
+        return pembayaran;
+    }
+
+    public void setPembayaran(int pembayaran) {
+        this.pembayaran = pembayaran;
     }
 
 }

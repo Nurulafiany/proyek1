@@ -11,31 +11,28 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 
 /**
  * FXML Controller class
  *
- * @author Nurul
+ * @author Developer
  */
-public class AddBarangController implements Initializable {
+public class LaporanController implements Initializable {
 
     @FXML
-    private TextField txtKdBarang;
+    private ComboBox<?> cmbSort;
     @FXML
-    private TextField txtNamaBarang;
+    private DatePicker dtTanggal;
     @FXML
-    private TextField txtHrgBarang;
+    private Button btnSimpanLap;
     @FXML
-    private TextField txtHrgJual;
+    private Button btnHapusLap;
     @FXML
-    private TextField txtJmlBarang;
+    private Button btnUpdateLap;
     @FXML
-    private Button btnTambahItem;
-    @FXML
-    private Button btnHapusItem;
-    @FXML
-    private Button btnUpdateItem;
+    private Button btnCetakLap;
 
     /**
      * Initializes the controller class.
@@ -43,18 +40,22 @@ public class AddBarangController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+    }    
+
+    @FXML
+    private void btnSimpanLapAction(ActionEvent event) {
     }
 
     @FXML
-    private void btnTambahItemAction(ActionEvent event) {
+    private void btnHapusLapAction(ActionEvent event) {
     }
 
     @FXML
-    private void btnHapusItemAction(ActionEvent event) {
+    private void btnUpdateLapAction(ActionEvent event) {
     }
 
     @FXML
-    private void btnUpdateItemAction(ActionEvent event) {
+    private void btnCetakLapAction(ActionEvent event) {
     }
-
+    
 }

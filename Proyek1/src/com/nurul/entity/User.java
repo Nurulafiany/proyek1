@@ -11,7 +11,7 @@ package com.nurul.entity;
  */
 public class User {
 
-    String idUser;
+    int idUser;
     String Nama;
     String Alamat;
     String Phone_Number;
@@ -20,7 +20,7 @@ public class User {
     String Email;
     int Role_idRole;
 
-    public User(String idUser, String Nama, String Alamat, String Phone_Number,
+    public User(int idUser, String Nama, String Alamat, String Phone_Number,
             String Username, String Password, String Email, int Role_idRole) {
         this.idUser = idUser;
         this.Nama = Nama;
@@ -32,11 +32,15 @@ public class User {
         this.Role_idRole = Role_idRole;
     }
 
-    public String getIdUser() {
+    public User() {
+
+    }
+
+    public int getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(String idUser) {
+    public void setIdUser(int idUser) {
         this.idUser = idUser;
     }
 

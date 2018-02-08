@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nurul.controller.TampilanKasirController">
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <center>
+      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <GridPane prefHeight="653.0" prefWidth="1025.0" HBox.hgrow="ALWAYS">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="505.3333435058594" minWidth="10.0" prefWidth="393.3333435058594" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="660.0" minWidth="10.0" prefWidth="630.6666564941406" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="348.3333435058594" minHeight="10.0" prefHeight="228.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="399.0" minHeight="10.0" prefHeight="399.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="324.3333435058594" minHeight="10.0" prefHeight="117.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <HBox prefHeight="228.0" prefWidth="460.0">
+                     <children>
+                        <GridPane prefHeight="227.0" prefWidth="368.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="175.33334350585938" minWidth="10.0" prefWidth="134.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="230.0" minWidth="10.0" prefWidth="230.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label text="No. Transaksi">
+                                 <padding>
+                                    <Insets left="5.0" />
+                                 </padding>
+                              </Label>
+                              <Label text="User" GridPane.rowIndex="1">
+                                 <padding>
+                                    <Insets left="5.0" />
+                                 </padding>
+                              </Label>
+                              <Label text="Tanggal" GridPane.rowIndex="2">
+                                 <padding>
+                                    <Insets left="5.0" />
+                                 </padding>
+                              </Label>
+                              <Label text="Masukkan Kode Item" GridPane.rowIndex="3">
+                                 <padding>
+                                    <Insets left="5.0" />
+                                 </padding>
+                              </Label>
+                              <TextField fx:id="txtNoTransaksi" GridPane.columnIndex="1" />
+                              <TextField fx:id="txtUsername" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <Label text="Jumlah" GridPane.rowIndex="4">
+                                 <padding>
+                                    <Insets left="5.0" />
+                                 </padding>
+                              </Label>
+                              <DatePicker fx:id="txtdate" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <TextField fx:id="txtJumlah" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <TextField fx:id="txtKodeItem" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                           </children>
+                        </GridPane>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
+                     <children>
+                        <GridPane prefHeight="227.0" prefWidth="611.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="323.0" minWidth="10.0" prefWidth="111.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="588.6666564941406" minWidth="10.0" prefWidth="550.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints maxHeight="121.33333587646484" minHeight="10.0" prefHeight="121.33333587646484" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="69.33333587646484" minHeight="10.0" prefHeight="30.666664123535156" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label text="Total">
+                                 <padding>
+                                    <Insets left="5.0" />
+                                 </padding>
+                              </Label>
+                              <Label text="Bayar" GridPane.rowIndex="1">
+                                 <padding>
+                                    <Insets left="5.0" />
+                                 </padding>
+                              </Label>
+                              <Label text="Kembali" GridPane.rowIndex="2">
+                                 <padding>
+                                    <Insets left="5.0" />
+                                 </padding>
+                              </Label>
+                              <TextField fx:id="txtTotal" disable="true" editable="false" prefHeight="108.0" prefWidth="550.0" GridPane.columnIndex="1" />
+                              <TextField fx:id="txtBayar" disable="true" editable="false" prefHeight="46.0" prefWidth="550.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <TextField fx:id="txtKembali" disable="true" editable="false" prefHeight="46.0" prefWidth="550.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                           </children>
+                        </GridPane>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                     <children>
+                        <TableView prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                          <columns>
+                            <TableColumn prefWidth="46.999996185302734" text="No." />
+                            <TableColumn prefWidth="153.33334350585938" text="Kode" />
+                              <TableColumn prefWidth="308.3333435058594" text="Nama Item" />
+                              <TableColumn prefWidth="103.66665649414062" text="Jml" />
+                              <TableColumn prefWidth="170.99996948242188" text="Harga" />
+                              <TableColumn prefWidth="241.33334350585938" text="Total" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
+                     <children>
+                        <GridPane prefHeight="183.0" prefWidth="184.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="183.33334350585938" minWidth="10.0" prefWidth="103.33333587646484" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Button fx:id="btnTambahItem" mnemonicParsing="false" onAction="#btnTambahItemAction" text="Tambah Item" />
+                              <Button fx:id="btnHapusItem" mnemonicParsing="false" onAction="#btnHapusItemAction" text="Hapus Item" GridPane.rowIndex="1" />
+                              <Button fx:id="btnUpdateItem" mnemonicParsing="false" text="Update Item" GridPane.rowIndex="2" />
+                           </children>
+                        </GridPane>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="99.0" prefWidth="631.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <children>
+                        <GridPane prefHeight="97.0" prefWidth="631.0">
+                           <children>
+                              <Label text="Pembayaran">
+                                 <opaqueInsets>
+                                    <Insets left="5.0" />
+                                 </opaqueInsets>
+                              </Label>
+                              <Label text="Keterangan" GridPane.rowIndex="1">
+                                 <opaqueInsets>
+                                    <Insets left="5.0" />
+                                 </opaqueInsets>
+                              </Label>
+                              <TextField fx:id="txtPembayaran" GridPane.columnIndex="1" />
+                              <TextField fx:id="txtKeterangan" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                           </children>
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="306.66668701171875" minWidth="10.0" prefWidth="174.66668701171875" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="456.33331298828125" minWidth="10.0" prefWidth="456.33331298828125" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                        </GridPane>
+                     </children>
+                  </HBox>
+               </children>
+            </GridPane>
+         </children>
+      </HBox>
+   </center>
+</BorderPane>

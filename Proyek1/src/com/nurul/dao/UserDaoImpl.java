@@ -10,9 +10,12 @@ import com.nurul.utility.DaoService;
 import com.nurul.utility.Koneksi;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -30,7 +33,7 @@ public class UserDaoImpl implements DaoService<User> {
                 String query
                         = "INSERT INTO Barang(IdBarang,NamaBrg,HargaBeli,HargaJual,Stock) VALUES (?,?,?,?,?,?)";
                 PreparedStatement ps = connection.prepareStatement(query);
-                ps.setString(1, object.getIdUser());
+                ps.setInt(1, object.getIdUser());
                 ps.setString(2, object.getNama());
                 ps.setString(3, object.getAlamat());
                 ps.setString(4, object.getPhone_Number());
@@ -64,6 +67,28 @@ public class UserDaoImpl implements DaoService<User> {
     @Override
     public List<User> showAllData() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public User getData(User id) {
+        try (Connection connection = Koneksi.createConnection()) {
+            connection.setAutoCommit(false);
+            String query
+                    = "SELECT u.idUser, u.Nama, u.Alamat, u.Phone_Number, u.Username, u.Password, u.Email, ro.Role_idRole FROM User u JOIN Role ro ON u.Role_idRole = ro.Role_idRole WHERE u.idUser = ?";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, id.getIdUser());
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                User user = new User();
+                user.setIdUser(rs.getInt("u.idUser"));
+                user.setPassword(rs.getString("u.Password"));
+
+                return user;
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(UserDaoImpl.class.getName()).
+                    log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
 }
