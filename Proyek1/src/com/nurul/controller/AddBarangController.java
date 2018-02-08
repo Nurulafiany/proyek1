@@ -15,7 +15,7 @@ import javafx.fxml.Initializable;
  * @author Nurul
  */
 public class AddBarangController implements Initializable {
-
+// 
     /**
      * Initializes the controller class.
      */
