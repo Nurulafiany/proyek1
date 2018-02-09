@@ -51,17 +51,20 @@ public class TransaksiDaoImpl implements DaoService<Transaksi> {
 
     @Override
     public int deleteData(Transaksi object) {
-
+throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
     }
 
     @Override
     public int updateData(Transaksi object) {
-
+    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
     }
 
     @Override
     public List<Transaksi> showAllData() {
-
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
     }
 
     @Override
@@ -69,14 +72,17 @@ public class TransaksiDaoImpl implements DaoService<Transaksi> {
         try (Connection connection = Koneksi.createConnection()) {
             connection.setAutoCommit(false);
             String query
-                    = "SELECT u.idUser, u.Nama, u.Alamat, u.Phone_Number, u.Username, u.Password, u.Email, ro.Role_idRole FROM User u JOIN Role ro ON u.Role_idRole = ro.Role_idRole WHERE u.idUser = ?";
+                    = "SELECT tr.idTransaksi, tr.Tanggal, tr.pembayaran, u.User_idUser FROM Transaksi tr JOIN User u ON tr.User_idUser = u.User_idUser WHERE u.idUser = ?";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, id.getIdTransaksi());
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 Transaksi tr = new Transaksi();
-                tr.setIdUser(rs.getInt("u.idUser"));
-                tr.setPassword(rs.getString("u.Password"));
+                tr.setIdTransaksi(rs.getInt("u.idUser"));
+                tr.setTanggal(rs.getDate("u.Password"));
+                tr.setPembayaran(rs.getInt("u.Password"));
+                tr.setUser_idUser(rs.getInt("u.Password"));
+                
                 return tr;
             }
         } catch (ClassNotFoundException | SQLException ex) {
