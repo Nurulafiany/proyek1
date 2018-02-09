@@ -17,6 +17,9 @@ public class Barang {
     Double HargaJual;
     int Stock;
 
+    public Barang() {
+    }
+    
     public Barang(int idBarang, String NamaBrg, Double HargaBeli,
             Double HargaJual, int Stock) {
         this.idBarang = idBarang;
