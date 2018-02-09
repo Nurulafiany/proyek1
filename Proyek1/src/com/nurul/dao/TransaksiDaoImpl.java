@@ -19,7 +19,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Developer
+ * @author Nurul Afiany (1672035)
  */
 public class TransaksiDaoImpl implements DaoService<Transaksi> {
 
@@ -34,7 +34,7 @@ public class TransaksiDaoImpl implements DaoService<Transaksi> {
                         = "INSERT INTO Transaksi(idTransaksi,Tanngal,pembayaran,User_idUser) VALUES (?,?,?)";
                 PreparedStatement ps = connection.prepareStatement(query);
                 ps.setInt(1, object.getIdTransaksi());
-//                ps.setDate(2, object.getTanggal());
+                ps.setTimestamp(2, object.getTanggal());
                 ps.setInt(3, object.getPembayaran());
                 ps.setInt(4, object.getUser_idUser());
                 if (ps.executeUpdate() != 0) {
@@ -80,7 +80,7 @@ throw new UnsupportedOperationException("Not supported yet."); //To change body 
             if (rs.next()) {
                 Transaksi tr = new Transaksi();
                 tr.setIdTransaksi(rs.getInt("tr.idTransaksi"));
-                tr.setTanggal(rs.getDate("tr.Tanggal"));
+                tr.setTanggal(rs.getTimestamp("tr.Tanggal"));
                 tr.setPembayaran(rs.getInt("tr.pembayaran"));
                 tr.setUser_idUser(rs.getInt("tr.User_idUser"));
                 

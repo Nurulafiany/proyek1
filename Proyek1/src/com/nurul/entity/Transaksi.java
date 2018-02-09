@@ -5,23 +5,24 @@
  */
 package com.nurul.entity;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
  *
- * @author Developer
+ * @author Nurul Afiany (1672035)
  */
 public class Transaksi {
 
     int idTransaksi;
-    Date Tanggal;
+    Timestamp Tanggal;
     int pembayaran;
     int User_idUser;
 
     public Transaksi() {
     }
 
-    public Transaksi(int idTransaksi, Date Tanggal, int pembayaran,
+    public Transaksi(int idTransaksi, Timestamp Tanggal, int pembayaran,
             int User_idUser) {
         this.idTransaksi = idTransaksi;
         this.Tanggal = Tanggal;
@@ -36,11 +37,11 @@ public class Transaksi {
         this.idTransaksi = idTransaksi;
     }
 
-    public Date getTanggal() {
+    public Timestamp getTanggal() {
         return Tanggal;
     }
 
-    public void setTanggal(Date Tanggal) {
+    public void setTanggal(Timestamp Tanggal) {
         this.Tanggal = Tanggal;
     }
 
