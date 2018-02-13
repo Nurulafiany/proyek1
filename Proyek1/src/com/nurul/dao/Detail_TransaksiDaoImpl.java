@@ -20,7 +20,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Developer
+ * @author Nurul afiany (1672035)
  */
 public class Detail_TransaksiDaoImpl implements DaoService<Detail_Transaksi> {
 

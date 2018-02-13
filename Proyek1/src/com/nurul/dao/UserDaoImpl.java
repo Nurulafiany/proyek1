@@ -16,10 +16,12 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  *
- * @author Developer
+ * @author Nurul afiany (1672035)
  */
 public class UserDaoImpl implements DaoService<User> {
 
@@ -56,17 +58,73 @@ public class UserDaoImpl implements DaoService<User> {
 
     @Override
     public int deleteData(User object) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int result = 0;
+        try {
+            try (Connection connection = Koneksi.createConnection()) {
+                connection.setAutoCommit(false);
+                String query = "DELETE FROM barang WHERE id=?";
+                PreparedStatement ps = connection.prepareStatement(query);
+                ps.setInt(1, object.getIdUser());
+                if (ps.executeUpdate() != 0) {
+                    connection.commit();
+                    result = 1;
+                } else {
+                    connection.rollback();
+                }
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            System.out.println(ex);
+        }
+        return result;
     }
 
     @Override
     public int updateData(User object) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Timestamp t = new Timestamp(System.currentTimeMillis());
+        int result = 0;
+        try {
+            try (Connection connection = Koneksi.createConnection()) {
+                connection.setAutoCommit(false);
+                String query = "UPDATE User SET name=?,price=?,description=?,"
+                        + "recomended=?,created=?,category_id=? WHERE id=?";
+                PreparedStatement ps = connection.prepareStatement(query);
+                ps.setInt(1, object.getIdUser());
+                ps.setString(1, object.getNama());
+                ps.setString(2, object.getAlamat());
+                ps.setString(2, object.getUsername());
+                ps.setString(2, object.getPassword());
+                ps.setString(2, object.getPhone_Number());
+                ps.setString(2, object.getEmail());
+                ps.setInt(1, object.getRole_idRole());
+                if (ps.executeUpdate() != 0) {
+                    connection.commit();
+                    result = 1;
+                } else {
+                    connection.rollback();
+                }
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            System.out.println(ex);
+        }
+        return result;
     }
 
     @Override
     public List<User> showAllData() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ObservableList<User> users = FXCollections.observableArrayList();
+        try {
+            try (Connection connection = Koneksi.createConnection()) {
+                String query = "SELECT m.*, c.id AS cat_id, c.name AS "
+                        + "cat_name FROM menu m JOIN category c on c.id "
+                        + "= m.category_id ORDER BY c.id ASC, m.id";
+                PreparedStatement ps = connection.prepareStatement(query);
+                ResultSet rs = ps.executeQuery();
+
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            System.out.println(ex);
+        }
+        return users;
     }
 
     public User getData(User id) {
@@ -86,8 +144,8 @@ public class UserDaoImpl implements DaoService<User> {
                 user.setPhone_Number(rs.getString("u.Phone_Number"));
                 user.setUsername(rs.getString("u.Username"));
                 user.setEmail(rs.getString("u.Email"));
-                user.setRole_idRole(rs.getInt("u.Role_idRole"));                
-                
+                user.setRole_idRole(rs.getInt("u.Role_idRole"));
+
                 return user;
             }
         } catch (ClassNotFoundException | SQLException ex) {
