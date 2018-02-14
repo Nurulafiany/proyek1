@@ -32,7 +32,6 @@ import javafx.stage.Stage;
  */
 public class LoginController implements Initializable {
 
-    private TextField txtUserName;
     @FXML
     private PasswordField txtPassword;
     @FXML
@@ -41,6 +40,8 @@ public class LoginController implements Initializable {
     private Button btnLogin;
     @FXML
     private BorderPane bpLogin;
+
+    private UserDaoImpl userDaoImpl;
 
     /**
      * Initializes the controller class.
@@ -53,39 +54,59 @@ public class LoginController implements Initializable {
     @FXML
     private void btnLoginAction(ActionEvent event) throws IOException {
         User user = new User();
-        user.setIdUser(Integer.valueOf(txtUserName.getText()));
+        user.setIdUser(txtUsername.getText());
         user.setPassword(txtPassword.getText());
         if (getUserDao().getData(user) != null) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("Login Berhasil.");
             alert.showAndWait();
 
-            FXMLLoader loader = new FXMLLoader();
-
-            int userRole = user.getRole_idRole();
-
             // Pembeda antara Owner dengan Kasir
-            loader.setLocation(MainApp.class.getResource("view/Login.fxml"));
-            BorderPane pane = loader.load();
-            Scene scene = new Scene(pane);
-            Stage secondStage = new Stage();
-            secondStage.setScene(scene);
-            secondStage.setTitle("Login Form");
-            secondStage.show();
+            if (getUserDao().getData(user).getRole_idRole().getRole_idRole().
+                    equals("1")) {
+                if (getUserDao().getData(user).getRole_idR
+                    ole().getRole_idRole == 1
 
-            //Close Login Stage
-            bpLogin.getScene().getWindow().hide();
-        } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Username atau Password anda salah!");
-            alert.showAndWait();
+                    )  {
+                FXMLLoader loader = new FXMLLoader();
+
+                    loader.setLocation(MainApp.class.getResource(
+                            "view/TampilanOwner.fxml"));
+                    BorderPane pane = loader.load();
+                    Scene scene = new Scene(pane);
+                    Stage secondStage = new Stage();
+                    secondStage.setScene(scene);
+                    secondStage.setTitle("Owner Form");
+                    secondStage.show();
+                }else if (getUserDao().getData(user).getRole_idRole().
+                    getRole_idRole().
+                    equals("2")) {
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(MainApp.class.getResource(
+                        "view/TampilanKasir.fxml"));
+                BorderPane pane = loader.load();
+                Scene scene = new Scene(pane);
+                Stage secondStage = new Stage();
+                secondStage.setScene(scene);
+                secondStage.setTitle("Cashier Form");
+                secondStage.show();
+            }
+
+                //Close Login Stage
+                bpLogin.getScene().getWindow().hide();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("Username atau Password anda salah!");
+                alert.showAndWait();
+            }
         }
-    }
+
+
 
     public UserDaoImpl getUserDao() {
-        Object Userdao = null;
-        if (Userdao == null) {
-            Userdao = new UserDaoImpl();
+
+        if (userDaoImpl == null) {
+            userDaoImpl = new UserDaoImpl();
         }
         UserDaoImpl userDao = null;
         return userDao;

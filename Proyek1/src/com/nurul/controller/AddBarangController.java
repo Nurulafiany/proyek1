@@ -47,6 +47,7 @@ public class AddBarangController implements Initializable {
 
     @FXML
     private void btnTambahItemAction(ActionEvent event) {
+        
     }
 
     @FXML
