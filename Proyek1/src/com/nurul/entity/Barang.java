@@ -12,7 +12,7 @@ import javafx.beans.property.StringProperty;
 
 /**
  *
- * @author Developer
+ * @author Nurul
  */
 public class Barang {
 
@@ -67,6 +67,20 @@ public class Barang {
 
     public IntegerProperty StockProperty() {
         return Stock;
+    }
+
+    private final StringProperty NamaBrg = new SimpleStringProperty();
+
+    public String getNamaBrg() {
+        return NamaBrg.get();
+    }
+
+    public void setNamaBrg(String value) {
+        NamaBrg.set(value);
+    }
+
+    public StringProperty NamaBrgProperty() {
+        return NamaBrg;
     }
 
 //
@@ -127,18 +141,4 @@ public class Barang {
 //    public void setStock(int Stock) {
 //        this.Stock = Stock;
 //    }
-    private final StringProperty NamaBrg = new SimpleStringProperty();
-
-    public String getNamaBrg() {
-        return NamaBrg.get();
-    }
-
-    public void setNamaBrg(String value) {
-        NamaBrg.set(value);
-    }
-
-    public StringProperty NamaBrgProperty() {
-        return NamaBrg;
-    }
-
 }

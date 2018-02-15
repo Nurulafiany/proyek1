@@ -5,8 +5,13 @@
  */
 package com.nurul.controller;
 
+import com.nurul.MainApp;
+import com.nurul.dao.BarangDaoImpl;
+import com.nurul.entity.Barang;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +20,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -32,8 +38,16 @@ public class TampilanOwnerController implements Initializable {
     private Label lblNama;
     @FXML
     private Button btnLaporan;
-    
+
     private Stage barangStage;
+    @FXML
+    private BorderPane borderPane;
+
+    private ObservableList<Barang> barangs;
+
+    private BarangDaoImpl barangDao;
+
+    private TampilanOwnerController mainController;
 
     /**
      * Initializes the controller class.
@@ -45,17 +59,16 @@ public class TampilanOwnerController implements Initializable {
 
     @FXML
     private void btnAddBarangAction(ActionEvent event) {
-         try {
+        try {
             if (barangStage == null) {
                 barangStage = new Stage();
-                barangStage.setTitle("Category Management");
+                barangStage.setTitle("Items Management");
                 FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(mainApp.class.getResource
-                    ("view/secondLayoutView.fxml"));
+                loader.setLocation(MainApp.class.getResource(
+                        "view/AddBarang.fxml"));
                 BorderPane root = loader.load();
                 Scene scene = new Scene(root);
-                AddBarangController addBrg = 
-                          loader.getController();
+                AddBarangController addBrg = loader.getController();
                 addBrg.setMainController(this);
                 barangStage.setScene(scene);
                 barangStage.initOwner(borderPane.getScene().getWindow());
@@ -77,6 +90,22 @@ public class TampilanOwnerController implements Initializable {
 
     @FXML
     private void btnLaporanAction(ActionEvent event) {
+    }
+
+    public BarangDaoImpl getBarangDao() {
+        if (barangDao == null) {
+            barangDao = new BarangDaoImpl();
+        }
+        return barangDao;
+    }
+
+    public ObservableList<Barang> getBarang() {
+
+        if (barangs == null) {
+            barangs = FXCollections.observableArrayList();
+            barangs.addAll(getBarangDao().showAllData());
+        }
+        return barangs;
     }
 
 }

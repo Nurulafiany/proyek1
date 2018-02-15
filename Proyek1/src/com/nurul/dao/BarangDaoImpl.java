@@ -33,12 +33,12 @@ public class BarangDaoImpl implements DaoService<Barang> {
             try (Connection connection = Koneksi.createConnection()) {
                 connection.setAutoCommit(false);
                 String query
-                        = "INSERT INTO Barang(IdBarang,NamaBrg,HargaBeli,HargaJual,Stock) VALUES (?,?,?,?,?,?)";
+                        = "INSERT INTO Barang(idBarang,NamaBrg,HargaBeli,HargaJual,Stock) VALUES (?,?,?,?,?,?)";
                 PreparedStatement ps = connection.prepareStatement(query);
                 ps.setInt(1, object.getIdBarang());
                 ps.setString(2, object.getNamaBrg());
-                ps.setDouble(3, object.getHargaBeli());
-                ps.setDouble(4, object.getHargaJual());
+                ps.setInt(3, object.getHargaBeli());
+                ps.setInt(4, object.getHargaJual());
                 ps.setInt(5, object.getStock());
                 if (ps.executeUpdate() != 0) {
                     connection.commit();
@@ -59,7 +59,7 @@ public class BarangDaoImpl implements DaoService<Barang> {
         try {
             try (Connection connection = Koneksi.createConnection()) {
                 connection.setAutoCommit(false);
-                String query = "DELETE FROM barang WHERE id=?";
+                String query = "DELETE FROM barang WHERE idBarang=?";
                 PreparedStatement ps = connection.prepareStatement(query);
                 ps.setInt(1, object.getIdBarang());
                 if (ps.executeUpdate() != 0) {
@@ -82,13 +82,14 @@ public class BarangDaoImpl implements DaoService<Barang> {
         try {
             try (Connection connection = Koneksi.createConnection()) {
                 connection.setAutoCommit(false);
-                String query = "UPDATE Barang SET name=?,price=?,description=?,"
-                        + "recomended=?,created=?,category_id=? WHERE id=?";
+                String query
+                        = "UPDATE Barang SET idBarang=?,NamaBrg=?,HargaBeli=?,"
+                        + "HargaJual=?,Stock=?";
                 PreparedStatement ps = connection.prepareStatement(query);
                 ps.setInt(1, object.getIdBarang());
                 ps.setString(1, object.getNamaBrg());
-                ps.setDouble(2, object.getHargaBeli());
-                ps.setDouble(2, object.getHargaJual());
+                ps.setInt(2, object.getHargaBeli());
+                ps.setInt(2, object.getHargaJual());
                 ps.setInt(3, object.getStock());
                 if (ps.executeUpdate() != 0) {
                     connection.commit();
@@ -108,9 +109,7 @@ public class BarangDaoImpl implements DaoService<Barang> {
         ObservableList<Barang> brg = FXCollections.observableArrayList();
         try {
             try (Connection connection = Koneksi.createConnection()) {
-                String query = "SELECT m.*, c.id AS cat_id, c.name AS "
-                        + "cat_name FROM menu m JOIN category c on c.id "
-                        + "= m.category_id ORDER BY c.id ASC, m.id";
+                String query = "SELECT * from Barang;";
                 PreparedStatement ps = connection.prepareStatement(query);
                 ResultSet rs = ps.executeQuery();
 

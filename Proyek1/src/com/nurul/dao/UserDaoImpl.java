@@ -139,12 +139,12 @@ public class UserDaoImpl implements DaoService<User> {
                 User user = new User();
                 user.setIdUser(rs.getString("u.idUser"));
                 user.setPassword(rs.getString("u.Password"));
-                
+                // user.setNama(rs.getString("u.Nama"));
 
                 Role urole = new Role();
                 urole.setIdRole(rs.getInt("u.Role_idRole"));
                 user.setRole_idRole(urole);
-                
+
                 return user;
             }
         } catch (ClassNotFoundException | SQLException ex) {

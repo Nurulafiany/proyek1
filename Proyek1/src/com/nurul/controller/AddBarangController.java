@@ -5,13 +5,20 @@
  */
 package com.nurul.controller;
 
+import com.nurul.dao.BarangDaoImpl;
+import com.nurul.entity.Barang;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -37,17 +44,45 @@ public class AddBarangController implements Initializable {
     @FXML
     private Button btnUpdateItem;
 
+    private TampilanOwnerController mainController;
+    @FXML
+    private TableView<Barang> tblVBarang;
+    @FXML
+    private TableColumn<Barang, Integer> colKdBarang;
+    @FXML
+    private TableColumn<Barang, String> colNamaBarang;
+    @FXML
+    private TableColumn<Barang, Integer> colHargaBrg;
+    @FXML
+    private TableColumn<Barang, Integer> colHargaJual;
+    @FXML
+    private TableColumn<Barang, Integer> colJmlBrg;
+
+    private ObservableList<Barang> barangs;
+    private Stage barangStage;
+    private BarangDaoImpl barangDao;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+//        tblVBarang.setItems(getBarang());
+//
+//        colKdBarang.setCellValueFactory(p -> p.getValue().idBarangProperty().
+//                asObject());
+//        colNamaBarang.setCellValueFactory(p -> p.getValue().NamaBrgProperty());
+//        colHargaBrg.setCellValueFactory(p -> p.getValue().HargaBeliProperty().
+//                asObject());
+//        colHargaJual.setCellValueFactory(p -> p.getValue().HargaJualProperty().
+//                asObject());
+//        colJmlBrg.setCellValueFactory(p -> p.getValue().StockProperty().
+//                asObject());
     }
 
     @FXML
     private void btnTambahItemAction(ActionEvent event) {
-        
+
     }
 
     @FXML
@@ -58,4 +93,28 @@ public class AddBarangController implements Initializable {
     private void btnUpdateItemAction(ActionEvent event) {
     }
 
+    public BarangDaoImpl getBarangDao() {
+        if (barangDao == null) {
+            barangDao = new BarangDaoImpl();
+        }
+        return barangDao;
+    }
+
+    public ObservableList<Barang> getBarang() {
+
+        if (barangs == null) {
+            barangs = FXCollections.observableArrayList();
+            barangs.addAll(getBarangDao().showAllData());
+        }
+        return barangs;
+    }
+
+    public void setMainController(TampilanOwnerController mainController) {
+        //   categoryDao = new CategoryDaoImpl();
+        this.mainController = mainController;
+        tblVBarang.setItems(mainController.getBarang());
+        colKdBarang.setCellValueFactory(p -> p.getValue().idBarangProperty().
+                asObject());
+        colNamaBarang.setCellValueFactory(p -> p.getValue().NamaBrgProperty());
+    }
 }
