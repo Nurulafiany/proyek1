@@ -5,6 +5,7 @@
  */
 package com.nurul.dao;
 
+import com.nurul.entity.Role;
 import com.nurul.entity.User;
 import com.nurul.utility.DaoService;
 import com.nurul.utility.Koneksi;
@@ -33,15 +34,15 @@ public class UserDaoImpl implements DaoService<User> {
             try (Connection connection = Koneksi.createConnection()) {
                 connection.setAutoCommit(false);
                 String query
-                        = "INSERT INTO Barang(IdBarang,NamaBrg,HargaBeli,HargaJual,Stock) VALUES (?,?,?,?,?,?)";
+                        = "INSERT INTO User(idUser,Nama,Alamat,Phone_Number,Password,Email,Role_idRole) VALUES (?,?,?,?,?,?,?)";
                 PreparedStatement ps = connection.prepareStatement(query);
                 ps.setString(1, object.getIdUser());
                 ps.setString(2, object.getNama());
                 ps.setString(3, object.getAlamat());
                 ps.setString(4, object.getPhone_Number());
-                ps.setString(6, object.getPassword());
+                ps.setString(5, object.getPassword());
                 ps.setString(6, object.getEmail());
-                ps.setInt(7, object.getRole_idRole());
+                ps.setInt(7, object.getRole_idRole().getIdRole());
                 if (ps.executeUpdate() != 0) {
                     connection.commit();
 
@@ -61,7 +62,7 @@ public class UserDaoImpl implements DaoService<User> {
         try {
             try (Connection connection = Koneksi.createConnection()) {
                 connection.setAutoCommit(false);
-                String query = "DELETE FROM barang WHERE id=?";
+                String query = "DELETE FROM User WHERE id=?";
                 PreparedStatement ps = connection.prepareStatement(query);
                 ps.setString(1, object.getIdUser());
                 if (ps.executeUpdate() != 0) {
@@ -88,12 +89,12 @@ public class UserDaoImpl implements DaoService<User> {
                         + "recomended=?,created=?,category_id=? WHERE id=?";
                 PreparedStatement ps = connection.prepareStatement(query);
                 ps.setString(1, object.getIdUser());
-                ps.setString(1, object.getNama());
-                ps.setString(2, object.getAlamat());
-                ps.setString(2, object.getPassword());
-                ps.setString(2, object.getPhone_Number());
-                ps.setString(2, object.getEmail());
-                ps.setInt(1, object.getRole_idRole());
+                ps.setString(2, object.getNama());
+                ps.setString(3, object.getAlamat());
+                ps.setString(4, object.getPassword());
+                ps.setString(5, object.getPhone_Number());
+                ps.setString(6, object.getEmail());
+                ps.setInt(7, object.getRole_idRole().getIdRole());
                 if (ps.executeUpdate() != 0) {
                     connection.commit();
                     result = 1;
@@ -129,20 +130,21 @@ public class UserDaoImpl implements DaoService<User> {
         try (Connection connection = Koneksi.createConnection()) {
             connection.setAutoCommit(false);
             String query
-                    = "SELECT u.idUser, u.Nama, u.Alamat, u.Phone_Number, u.Username, u.Password, u.Email, ro.Role_idRole FROM User u JOIN Role ro ON u.Role_idRole = ro.Role_idRole WHERE u.idUser = ?";
+                    = "SELECT idUser, Password, Role_idRole FROM User u JOIN Role ro ON u.Role_idRole = ro.idRole WHERE u.idUser = ? and u.Password = ?";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setString(1, id.getIdUser());
+            ps.setString(2, id.getPassword());
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 User user = new User();
                 user.setIdUser(rs.getString("u.idUser"));
                 user.setPassword(rs.getString("u.Password"));
-                user.setNama(rs.getString("u.Nama"));
-                user.setAlamat(rs.getString("u.Alamat"));
-                user.setPhone_Number(rs.getString("u.Phone_Number"));
-                user.setEmail(rs.getString("u.Email"));
-                user.setRole_idRole(rs.getInt("u.Role_idRole"));
+                
 
+                Role urole = new Role();
+                urole.setIdRole(rs.getInt("u.Role_idRole"));
+                user.setRole_idRole(urole);
+                
                 return user;
             }
         } catch (ClassNotFoundException | SQLException ex) {

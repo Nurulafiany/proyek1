@@ -50,7 +50,25 @@ public class LoginController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }
+    
+    public ObservableList<User> users;
+    
+    public ObservableList<User> geUsers() {
+        if (users == null) {
+            users = FXCollections.observableArrayList();
+            users.addAll(getUserDao().showAllData());
+        }
+        return users;
+    }
+    
+    public UserDaoImpl getUserDao() {
 
+        if (userDaoImpl == null) {
+            userDaoImpl = new UserDaoImpl();
+        }
+        return userDaoImpl;
+    }
+    
     @FXML
     private void btnLoginAction(ActionEvent event) throws IOException {
         User user = new User();
@@ -62,12 +80,7 @@ public class LoginController implements Initializable {
             alert.showAndWait();
 
             // Pembeda antara Owner dengan Kasir
-            if (getUserDao().getData(user).getRole_idRole().getRole_idRole().
-                    equals("1")) {
-                if (getUserDao().getData(user).getRole_idR
-                    ole().getRole_idRole == 1
-
-                    )  {
+            if (getUserDao().getData(user).getRole_idRole().getIdRole() == 1) {
                 FXMLLoader loader = new FXMLLoader();
 
                     loader.setLocation(MainApp.class.getResource(
@@ -78,9 +91,7 @@ public class LoginController implements Initializable {
                     secondStage.setScene(scene);
                     secondStage.setTitle("Owner Form");
                     secondStage.show();
-                }else if (getUserDao().getData(user).getRole_idRole().
-                    getRole_idRole().
-                    equals("2")) {
+                } else if (getUserDao().getData(user).getRole_idRole().getIdRole() == 2) {
                 FXMLLoader loader = new FXMLLoader();
                 loader.setLocation(MainApp.class.getResource(
                         "view/TampilanKasir.fxml"));
@@ -100,26 +111,4 @@ public class LoginController implements Initializable {
                 alert.showAndWait();
             }
         }
-
-
-
-    public UserDaoImpl getUserDao() {
-
-        if (userDaoImpl == null) {
-            userDaoImpl = new UserDaoImpl();
-        }
-        UserDaoImpl userDao = null;
-        return userDao;
-    }
-
-    public ObservableList<User> users;
-
-    public ObservableList<User> geUsers() {
-        if (users == null) {
-            users = FXCollections.observableArrayList();
-            users.addAll(getUserDao().showAllData());
-        }
-        return users;
-    }
-
 }

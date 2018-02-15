@@ -34,9 +34,9 @@ public class TransaksiDaoImpl implements DaoService<Transaksi> {
                         = "INSERT INTO Transaksi(idTransaksi,Tanngal,pembayaran,User_idUser) VALUES (?,?,?)";
                 PreparedStatement ps = connection.prepareStatement(query);
                 ps.setInt(1, object.getIdTransaksi());
-                ps.setTimestamp(2, object.getTanggal());
+                ps.setTimestamp(2, t);
                 ps.setInt(3, object.getPembayaran());
-                ps.setInt(4, object.getUser_idUser());
+                ps.setString(4, object.getUser_idUser());
                 if (ps.executeUpdate() != 0) {
                     connection.commit();
 
@@ -80,9 +80,9 @@ throw new UnsupportedOperationException("Not supported yet."); //To change body 
             if (rs.next()) {
                 Transaksi tr = new Transaksi();
                 tr.setIdTransaksi(rs.getInt("tr.idTransaksi"));
-                tr.setTanggal(rs.getTimestamp("tr.Tanggal"));
+            //    tr.setTanggal(rs.getTimestamp("tr.Tanggal"));
                 tr.setPembayaran(rs.getInt("tr.pembayaran"));
-                tr.setUser_idUser(rs.getInt("tr.User_idUser"));
+                tr.setUser_idUser(rs.getString("tr.User_idUser"));
                 
                 return tr;
             }

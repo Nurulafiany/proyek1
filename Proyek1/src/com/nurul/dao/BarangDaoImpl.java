@@ -134,8 +134,8 @@ public class BarangDaoImpl implements DaoService<Barang> {
                 Barang barang = new Barang();
                 barang.setIdBarang(rs.getInt("u.idUser"));
                 barang.setNamaBrg(rs.getString("u.Password"));
-                barang.setHargaBeli(rs.getDouble("u.Nama"));
-                barang.setHargaJual(rs.getDouble("u.Nama"));
+                barang.setHargaBeli(rs.getInt("u.Nama"));
+                barang.setHargaJual(rs.getInt("u.Nama"));
                 barang.setStock(rs.getInt("br.stock"));
 
                 return barang;

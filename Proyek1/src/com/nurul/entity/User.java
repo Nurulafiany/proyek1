@@ -6,7 +6,9 @@
 package com.nurul.entity;
 
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -81,19 +83,20 @@ public class User {
     public StringProperty EmailProperty() {
         return Email;
     }
-    private final IntegerProperty Role_idRole = new SimpleIntegerProperty();
+    private final ObjectProperty<Role> Role_idRole = new SimpleObjectProperty<>();
 
-    public int getRole_idRole() {
+    public Role getRole_idRole() {
         return Role_idRole.get();
     }
 
-    public void setRole_idRole(int value) {
+    public void setRole_idRole(Role value) {
         Role_idRole.set(value);
     }
 
-    public IntegerProperty Role_idRoleProperty() {
+    public ObjectProperty Role_idRoleProperty() {
         return Role_idRole;
     }
+   
 
 //    String idUser;
 //    String Nama;

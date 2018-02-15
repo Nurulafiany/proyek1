@@ -19,7 +19,7 @@ public class Koneksi {
             SQLException {
         Class.forName("com.mysql.jdbc.Driver");
         Connection connection = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/db", "root",
+                "jdbc:mysql://localhost:3306/mydb", "root",
                 "");
         return connection;
     }
