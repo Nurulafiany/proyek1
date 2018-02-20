@@ -6,7 +6,6 @@
 package com.nurul.dao;
 
 import com.nurul.entity.Role;
-import com.nurul.entity.User;
 import com.nurul.utility.DaoService;
 import com.nurul.utility.Koneksi;
 import java.sql.Connection;
@@ -46,7 +45,8 @@ public class RoleDaoImpl implements DaoService<Role> {
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex);
         }
-        return result;}
+        return result;
+    }
 
     @Override
     public int deleteData(Role object) {
@@ -71,12 +71,13 @@ public class RoleDaoImpl implements DaoService<Role> {
                     = "SELECT idRole, Status FROM Role";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, id.getIdRole());
+            ps.setString(2, id.getStatus());
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 Role role = new Role();
                 role.setIdRole(rs.getInt("idRole"));
                 role.setStatus(rs.getString("Status"));
-                
+
                 return role;
             }
         } catch (ClassNotFoundException | SQLException ex) {

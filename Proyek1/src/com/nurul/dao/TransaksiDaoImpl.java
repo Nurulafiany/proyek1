@@ -31,7 +31,7 @@ public class TransaksiDaoImpl implements DaoService<Transaksi> {
             try (Connection connection = Koneksi.createConnection()) {
                 connection.setAutoCommit(false);
                 String query
-                        = "INSERT INTO Transaksi(idTransaksi,Tanngal,pembayaran,User_idUser) VALUES (?,?,?)";
+                        = "INSERT INTO Transaksi(idTransaksi,Tanggal,pembayaran,User_idUser) VALUES (?,?,?)";
                 PreparedStatement ps = connection.prepareStatement(query);
                 ps.setInt(1, object.getIdTransaksi());
                 ps.setTimestamp(2, t);
@@ -52,38 +52,42 @@ public class TransaksiDaoImpl implements DaoService<Transaksi> {
 
     @Override
     public int deleteData(Transaksi object) {
-throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
     }
 
     @Override
     public int updateData(Transaksi object) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
     }
 
     @Override
     public List<Transaksi> showAllData() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    
+
     }
 
     @Override
     public Transaksi getData(Transaksi id) {
+        Timestamp t = new Timestamp(System.currentTimeMillis());
         try (Connection connection = Koneksi.createConnection()) {
             connection.setAutoCommit(false);
             String query
-                    = "SELECT tr.idTransaksi, tr.Tanggal, tr.pembayaran, u.User_idUser FROM Transaksi tr JOIN User u ON tr.User_idUser = u.User_idUser WHERE u.idUser = ?";
+                    = "SELECT idTransaksi, Tanggal, pembayaran, User_idUser FROM Transaksi tk JOIN User u ON tk.User_idUser = u.idUser Where idTransaksi = ?";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, id.getIdTransaksi());
+            ps.setTimestamp(2, t);
+            ps.setInt(3, id.getPembayaran());
+            ps.setString(4, id.getUser_idUser());
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 Transaksi tr = new Transaksi();
                 tr.setIdTransaksi(rs.getInt("tr.idTransaksi"));
-            //    tr.setTanggal(rs.getTimestamp("tr.Tanggal"));
+                //    tr.setTanggal(rs.getTimestamp("tr.Tanggal"));
                 tr.setPembayaran(rs.getInt("tr.pembayaran"));
                 tr.setUser_idUser(rs.getString("tr.User_idUser"));
-                
+
                 return tr;
             }
         } catch (ClassNotFoundException | SQLException ex) {

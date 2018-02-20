@@ -127,7 +127,7 @@
                               <TableColumn fx:id="colNamaBarang" prefWidth="368.6666564941406" text="Nama Barang" />
                               <TableColumn fx:id="colHargaBrg" prefWidth="126.66665649414062" text="Harga Brg" />
                               <TableColumn fx:id="colHargaJual" prefWidth="176.99996948242188" text="Harga Jual" />
-                              <TableColumn fx:id="colJmlBrg" prefWidth="111.6666259765625" text="Jml Barang" />
+                              <TableColumn fx:id="colJmlBrg" prefWidth="152.0" text="Jml Barang" />
                           </columns>
                            <padding>
                               <Insets left="5.0" />

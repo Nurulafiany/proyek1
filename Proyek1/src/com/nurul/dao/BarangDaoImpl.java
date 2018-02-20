@@ -87,10 +87,10 @@ public class BarangDaoImpl implements DaoService<Barang> {
                         + "HargaJual=?,Stock=?";
                 PreparedStatement ps = connection.prepareStatement(query);
                 ps.setInt(1, object.getIdBarang());
-                ps.setString(1, object.getNamaBrg());
-                ps.setInt(2, object.getHargaBeli());
-                ps.setInt(2, object.getHargaJual());
-                ps.setInt(3, object.getStock());
+                ps.setString(2, object.getNamaBrg());
+                ps.setInt(3, object.getHargaBeli());
+                ps.setInt(4, object.getHargaJual());
+                ps.setInt(5, object.getStock());
                 if (ps.executeUpdate() != 0) {
                     connection.commit();
                     result = 1;
@@ -137,6 +137,10 @@ public class BarangDaoImpl implements DaoService<Barang> {
                     = "SELECT idBarang, NamaBrg, HargaBeli, HargaJual, Stock FROM Barang";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, id.getIdBarang());
+            ps.setString(2, id.getNamaBrg());
+            ps.setInt(3, id.getHargaBeli());
+            ps.setInt(4, id.getHargaJual());
+            ps.setInt(5, id.getStock());
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 Barang barang = new Barang();

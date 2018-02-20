@@ -69,24 +69,13 @@ public class AddBarangController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-//        tblVBarang.setItems(getBarang());
-//
-//        colKdBarang.setCellValueFactory(p -> p.getValue().idBarangProperty().
-//                asObject());
-//        colNamaBarang.setCellValueFactory(p -> p.getValue().NamaBrgProperty());
-//        colHargaBrg.setCellValueFactory(p -> p.getValue().HargaBeliProperty().
-//                asObject());
-//        colHargaJual.setCellValueFactory(p -> p.getValue().HargaJualProperty().
-//                asObject());
-//        colJmlBrg.setCellValueFactory(p -> p.getValue().StockProperty().
-//                asObject());
     }
 
     @FXML
     private void btnTambahItemAction(ActionEvent event) {
         Utility utility = new Utility();
         if (!utility.isEmptyField(txtNamaBarang, txtHrgBarang,
-                txtHrgJual, txtHrgJual)) {
+                txtHrgJual, txtJmlBarang)) {
             Barang barang = new Barang();
             barang.setNamaBrg(txtNamaBarang.getText().trim());
             barang.setHargaBeli(Integer.
@@ -160,7 +149,7 @@ public class AddBarangController implements Initializable {
     public void setMainController(TampilanOwnerController mainController) {
         //   categoryDao = new CategoryDaoImpl();
         this.mainController = mainController;
-        tblVBarang.setItems(mainController.getBarang());
+        tblVBarang.setItems(getBarang());
         colKdBarang.setCellValueFactory(p -> p.getValue().idBarangProperty().
                 asObject());
         colNamaBarang.setCellValueFactory(p -> p.getValue().NamaBrgProperty());

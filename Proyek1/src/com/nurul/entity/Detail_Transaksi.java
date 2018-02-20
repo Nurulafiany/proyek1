@@ -5,9 +5,7 @@
  */
 package com.nurul.entity;
 
-import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
 /**
@@ -43,17 +41,17 @@ public class Detail_Transaksi {
     public IntegerProperty QtyBarangProperty() {
         return QtyBarang;
     }
-    private final DoubleProperty HargaJual = new SimpleDoubleProperty();
+    private final IntegerProperty HargaJual = new SimpleIntegerProperty();
 
-    public double getHargaJual() {
+    public int getHargaJual() {
         return HargaJual.get();
     }
 
-    public void setHargaJual(double value) {
+    public void setHargaJual(int value) {
         HargaJual.set(value);
     }
 
-    public DoubleProperty HargaJualProperty() {
+    public IntegerProperty HargaJualProperty() {
         return HargaJual;
     }
 

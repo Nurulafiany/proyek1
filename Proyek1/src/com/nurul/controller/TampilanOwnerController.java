@@ -10,7 +10,6 @@ import com.nurul.dao.BarangDaoImpl;
 import com.nurul.entity.Barang;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -90,22 +89,6 @@ public class TampilanOwnerController implements Initializable {
 
     @FXML
     private void btnLaporanAction(ActionEvent event) {
-    }
-
-    public BarangDaoImpl getBarangDao() {
-        if (barangDao == null) {
-            barangDao = new BarangDaoImpl();
-        }
-        return barangDao;
-    }
-
-    public ObservableList<Barang> getBarang() {
-
-        if (barangs == null) {
-            barangs = FXCollections.observableArrayList();
-            barangs.addAll(getBarangDao().showAllData());
-        }
-        return barangs;
     }
 
 }

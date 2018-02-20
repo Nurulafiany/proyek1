@@ -6,7 +6,6 @@
 package com.nurul.dao;
 
 import com.nurul.entity.Detail_Transaksi;
-import com.nurul.entity.User;
 import com.nurul.utility.DaoService;
 import com.nurul.utility.Koneksi;
 import java.sql.Connection;
@@ -32,13 +31,13 @@ public class Detail_TransaksiDaoImpl implements DaoService<Detail_Transaksi> {
             try (Connection connection = Koneksi.createConnection()) {
                 connection.setAutoCommit(false);
                 String query
-                        = "INSERT INTO Detail_Transaksi(IdBarang,NamaBrg,HargaBeli,HargaJual,Stock) VALUES (?,?,?,?,?,?)";
+                        = "INSERT INTO Detail_Transaksi(Transaksi_idTransaksi,Barang_idBarang,QtyBarang,HargaJual) VALUES (?,?,?,?)";
                 PreparedStatement ps = connection.prepareStatement(query);
                 ps.setInt(1, object.getTransaksi_idTransaksi());
-                ps.setInt(1, object.getBarang_idBarang());
-                ps.setInt(1, object.getQtyBarang());
-                ps.setDouble(7, object.getHargaJual());
-                
+                ps.setInt(2, object.getBarang_idBarang());
+                ps.setInt(3, object.getQtyBarang());
+                ps.setInt(4, object.getHargaJual());
+
                 if (ps.executeUpdate() != 0) {
                     connection.commit();
 
@@ -72,18 +71,20 @@ public class Detail_TransaksiDaoImpl implements DaoService<Detail_Transaksi> {
         try (Connection connection = Koneksi.createConnection()) {
             connection.setAutoCommit(false);
             String query
-                    = "SELECT dt.Transaksi_idTransaksi, dt.Barang_idBarang, dt.QtyBarang, dt.HargaJual FROM Detail_Transaksi";
+                    = "SELECT Transaksi_idTransaksi, Barang_idBarang, QtyBarang, dt.HargaJual FROM Detail_Transaksi dt JOIN Barang br ON dt.Barang_idBarang = br.idBarang JOIN Transaksi tk ON dt.Transaksi_idTransaksi = tk.idTransaksi";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, id.getTransaksi_idTransaksi());
-            ps.setInt(1, id.getBarang_idBarang());
+            ps.setInt(2, id.getBarang_idBarang());
+            ps.setInt(3, id.getQtyBarang());
+            ps.setInt(4, id.getHargaJual());
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 Detail_Transaksi dt = new Detail_Transaksi();
                 dt.setBarang_idBarang(rs.getInt("u.idUser"));
                 dt.setQtyBarang(rs.getInt("u.Password"));
                 dt.setTransaksi_idTransaksi(rs.getInt("u.Nama"));
-                dt.setHargaJual(rs.getDouble("u.Nama"));
-                
+                dt.setHargaJual(rs.getInt("u.Nama"));
+
                 return dt;
             }
         } catch (ClassNotFoundException | SQLException ex) {
