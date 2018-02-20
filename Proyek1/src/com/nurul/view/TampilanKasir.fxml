@@ -131,7 +131,6 @@
                      <children>
                         <TableView prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                           <columns>
-                            <TableColumn prefWidth="46.999996185302734" text="No." />
                             <TableColumn prefWidth="153.33334350585938" text="Kode" />
                               <TableColumn prefWidth="308.3333435058594" text="Nama Item" />
                               <TableColumn prefWidth="103.66665649414062" text="Jml" />

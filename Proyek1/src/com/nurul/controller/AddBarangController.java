@@ -7,6 +7,7 @@ package com.nurul.controller;
 
 import com.nurul.dao.BarangDaoImpl;
 import com.nurul.entity.Barang;
+import com.nurul.utility.Utility;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -14,6 +15,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -82,7 +84,31 @@ public class AddBarangController implements Initializable {
 
     @FXML
     private void btnTambahItemAction(ActionEvent event) {
+        Utility utility = new Utility();
+        if (!utility.isEmptyField(txtNamaBarang, txtHrgBarang,
+                txtHrgJual, txtHrgJual)) {
+            Barang barang = new Barang();
+            barang.setNamaBrg(txtNamaBarang.getText().trim());
+            barang.setHargaBeli(Integer.
+                    valueOf(txtHrgBarang.getText().trim()));
+            barang.setHargaJual(Integer.
+                    valueOf(txtHrgJual.getText().trim()));
+            barang.setStock(Integer.
+                    valueOf(txtJmlBarang.getText().trim()));
 
+            if (getBarangDao().addData(barang) == 1) {
+                getBarang().clear();
+                getBarang().addAll(getBarangDao().showAllData());
+            }
+            txtNamaBarang.clear();
+            txtHrgBarang.clear();
+            txtHrgJual.clear();
+            txtJmlBarang.clear();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Field masih ada yang kosong");
+            alert.showAndWait();
+        }
     }
 
     @FXML
@@ -91,6 +117,28 @@ public class AddBarangController implements Initializable {
 
     @FXML
     private void btnUpdateItemAction(ActionEvent event) {
+        if (!Utility.isEmptyField(txtNamaBarang, txtHrgBarang,
+                txtHrgJual, txtHrgJual)) {
+            Barang barang = new Barang();
+            barang.setNamaBrg(txtNamaBarang.getText().trim());
+            barang.setHargaBeli(Integer.
+                    valueOf(txtHrgBarang.getText().trim()));
+            barang.setHargaJual(Integer.
+                    valueOf(txtHrgJual.getText().trim()));
+            barang.setStock(Integer.
+                    valueOf(txtJmlBarang.getText().trim()));
+            getBarangDao().updateData(barang);
+            getBarang().clear();
+            getBarang().addAll(getBarangDao().showAllData());
+            //mainController.getDepartmentDao().updateData(selectedDepartment);
+            //mainController.getDepartments().clear();
+            //mainController.getDepartments().addAll(mainController.getDepartmentDao().showAllData());
+            //this.resetFieldAndButton();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Silahkan ketik ulang");
+            alert.showAndWait();
+        }
     }
 
     public BarangDaoImpl getBarangDao() {
@@ -116,5 +164,11 @@ public class AddBarangController implements Initializable {
         colKdBarang.setCellValueFactory(p -> p.getValue().idBarangProperty().
                 asObject());
         colNamaBarang.setCellValueFactory(p -> p.getValue().NamaBrgProperty());
+        colHargaBrg.setCellValueFactory(p -> p.getValue().HargaBeliProperty().
+                asObject());
+        colHargaJual.setCellValueFactory(p -> p.getValue().HargaJualProperty().
+                asObject());
+        colJmlBrg.setCellValueFactory(p -> p.getValue().StockProperty().
+                asObject());
     }
 }

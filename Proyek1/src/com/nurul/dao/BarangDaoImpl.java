@@ -112,7 +112,16 @@ public class BarangDaoImpl implements DaoService<Barang> {
                 String query = "SELECT * from Barang;";
                 PreparedStatement ps = connection.prepareStatement(query);
                 ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    Barang bar = new Barang();
+                    bar.setIdBarang(rs.getInt("Kd_barang"));
+                    bar.setNamaBrg(rs.getString("nama_brng"));
+                    bar.setHargaBeli(rs.getInt("jumlah"));
+                    bar.setHargaJual(rs.getInt("harga_modal"));
+                    bar.setStock(rs.getInt("harga"));
 
+                    brg.add(bar);
+                }
             }
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex);
@@ -125,17 +134,17 @@ public class BarangDaoImpl implements DaoService<Barang> {
         try (Connection connection = Koneksi.createConnection()) {
             connection.setAutoCommit(false);
             String query
-                    = "SELECT u.idUser, u.Nama, u.Alamat, u.Phone_Number, u.Username, u.Password, u.Email, ro.Role_idRole FROM User u JOIN Role ro ON u.Role_idRole = ro.Role_idRole WHERE u.idUser = ?";
+                    = "SELECT idBarang, NamaBrg, HargaBeli, HargaJual, Stock FROM Barang";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, id.getIdBarang());
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 Barang barang = new Barang();
-                barang.setIdBarang(rs.getInt("u.idUser"));
-                barang.setNamaBrg(rs.getString("u.Password"));
-                barang.setHargaBeli(rs.getInt("u.Nama"));
-                barang.setHargaJual(rs.getInt("u.Nama"));
-                barang.setStock(rs.getInt("br.stock"));
+                barang.setIdBarang(rs.getInt("idBarang"));
+                barang.setNamaBrg(rs.getString("NamaBrg"));
+                barang.setHargaBeli(rs.getInt("HargaBeli"));
+                barang.setHargaJual(rs.getInt("Hargajual"));
+                barang.setStock(rs.getInt("Stock"));
 
                 return barang;
             }
