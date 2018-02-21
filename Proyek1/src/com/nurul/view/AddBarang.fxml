@@ -47,43 +47,36 @@
                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="426.0" minWidth="10.0" prefWidth="300.0" />
                           </columnConstraints>
                           <rowConstraints>
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Label text="Kode Barang">
+                              <Label text="Nama Barang">
                                  <padding>
                                     <Insets left="5.0" />
                                  </padding>
                               </Label>
-                              <Label text="Nama Barang" GridPane.rowIndex="1">
+                              <Label text="Harga Barang" GridPane.rowIndex="1">
                                  <padding>
                                     <Insets left="5.0" />
                                  </padding>
                               </Label>
-                              <Label text="Harga Barang" GridPane.rowIndex="2">
+                              <Label text="Harga Jual" GridPane.rowIndex="2">
                                  <padding>
                                     <Insets left="5.0" />
                                  </padding>
                               </Label>
-                              <Label text="Harga Jual" GridPane.rowIndex="3">
+                              <Label text="Jumlah barang" GridPane.rowIndex="3">
                                  <padding>
                                     <Insets left="5.0" />
                                  </padding>
                               </Label>
-                              <Label text="Jumlah barang" GridPane.rowIndex="4">
-                                 <padding>
-                                    <Insets left="5.0" />
-                                 </padding>
-                              </Label>
-                              <TextField fx:id="txtKdBarang" GridPane.columnIndex="1" />
-                              <TextField fx:id="txtNamaBarang" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <TextField fx:id="txtHrgBarang" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <TextField fx:id="txtHrgJual" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                              <TextField fx:id="txtJmlBarang" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <TextField fx:id="txtNamaBarang" GridPane.columnIndex="1" />
+                              <TextField fx:id="txtHrgBarang" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <TextField fx:id="txtHrgJual" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <TextField fx:id="txtJmlBarang" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                            </children>
                         </GridPane>
                      </children>
@@ -123,11 +116,10 @@
                      <children>
                         <TableView fx:id="tblVBarang" onMouseClicked="#tblBrgOnClick" prefHeight="155.0" prefWidth="1007.0">
                           <columns>
-                            <TableColumn fx:id="colKdBarang" prefWidth="172.33334350585938" text="Kd Barang" />
                               <TableColumn fx:id="colNamaBarang" prefWidth="368.6666564941406" text="Nama Barang" />
-                              <TableColumn fx:id="colHargaBrg" prefWidth="126.66665649414062" text="Harga Brg" />
-                              <TableColumn fx:id="colHargaJual" prefWidth="176.99996948242188" text="Harga Jual" />
-                              <TableColumn fx:id="colJmlBrg" prefWidth="152.0" text="Jml Barang" />
+                              <TableColumn fx:id="colHargaBrg" prefWidth="229.0" text="Harga Brg" />
+                              <TableColumn fx:id="colHargaJual" prefWidth="238.0" text="Harga Jual" />
+                              <TableColumn fx:id="colJmlBrg" prefWidth="162.0" text="Jml Barang" />
                           </columns>
                            <padding>
                               <Insets left="5.0" />

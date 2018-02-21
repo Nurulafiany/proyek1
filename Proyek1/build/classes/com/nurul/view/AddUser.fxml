@@ -64,7 +64,6 @@
                           <rowConstraints>
                             <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                             <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
@@ -76,59 +75,56 @@
                                     <Insets left="5.0" />
                                  </padding>
                               </Label>
-                              <Label text="User Name" GridPane.rowIndex="1">
+                              <Label text="Full Name" GridPane.rowIndex="1">
                                  <padding>
                                     <Insets left="5.0" />
                                  </padding>
                               </Label>
-                              <Label text="Password" GridPane.rowIndex="2">
+                              <Label GridPane.rowIndex="2">
                                  <padding>
                                     <Insets left="5.0" />
                                  </padding>
                               </Label>
-                              <Label text="Full Name" GridPane.rowIndex="3">
+                              <Label text="Email" GridPane.rowIndex="5">
                                  <padding>
                                     <Insets left="5.0" />
                                  </padding>
                               </Label>
-                              <Label text="Email" GridPane.rowIndex="6">
+                              <Label text="No.Hp" GridPane.rowIndex="3">
                                  <padding>
                                     <Insets left="5.0" />
                                  </padding>
                               </Label>
-                              <Label text="No.Hp" GridPane.rowIndex="4">
-                                 <padding>
-                                    <Insets left="5.0" />
-                                 </padding>
-                              </Label>
-                              <Label text="Alamat" GridPane.rowIndex="5">
+                              <Label text="Alamat" GridPane.rowIndex="2">
                                  <padding>
                                     <Insets left="5.0" />
                                  </padding>
                               </Label>
                               <TextField fx:id="txtKdUserUs" GridPane.columnIndex="1" />
-                              <TextField fx:id="txtUsernameUs" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <TextField fx:id="txtFullNameUs" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                              <PasswordField fx:id="txtPasswordAdd" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <PasswordField fx:id="txtNoHPUs" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                              <TextField fx:id="txtAlamateUs" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                              <TextField fx:id="txtEmailUs" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                              <TextField fx:id="txtAlamatUs" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <TextField fx:id="txtEmailUs" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                              <Label text="Password" GridPane.rowIndex="4">
+                                 <padding>
+                                    <Insets left="5.0" />
+                                 </padding>
+                              </Label>
+                              <TextField fx:id="txtNoHP" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <TextField fx:id="txtFullNameUs" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <PasswordField fx:id="txtPasswordUs" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                            </children>
                         </GridPane>
                      </children>
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="3">
                      <children>
-                        <TableView prefHeight="181.0" prefWidth="1036.0">
+                        <TableView fx:id="tblVuser" onMouseClicked="#tblUserOnClick" prefHeight="181.0" prefWidth="1036.0">
                           <columns>
-                            <TableColumn prefWidth="75.0" text="Kode User" />
-                            <TableColumn prefWidth="91.0" text="User Name" />
-                              <TableColumn prefWidth="100.33332824707031" text="Password" />
-                              <TableColumn prefWidth="86.66667175292969" text="First Name" />
-                              <TableColumn prefWidth="112.66668701171875" text="Last Name" />
-                              <TableColumn prefWidth="93.0" text="No.HP" />
-                              <TableColumn prefWidth="284.3333740234375" text="Alamat" />
-                              <TableColumn prefWidth="180.6666259765625" text="Email" />
+                            <TableColumn fx:id="ColKdUser" prefWidth="97.66666412353516" text="Kode User" />
+                            <TableColumn fx:id="ColFullNameUs" prefWidth="216.33334350585938" text="Full Name" />
+                              <TableColumn fx:id="ColAlamatUs" prefWidth="345.6666259765625" text="Alamat" />
+                              <TableColumn fx:id="ColNoHPUs" prefWidth="89.3333740234375" text="No.Hp" />
+                              <TableColumn fx:id="ColPasswordUs" prefWidth="122.66668701171875" text="Password" />
+                              <TableColumn fx:id="ColEmailUs" prefWidth="154.33331298828125" text="Email" />
                           </columns>
                         </TableView>
                      </children>

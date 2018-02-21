@@ -12,7 +12,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -59,7 +58,7 @@ public class BarangDaoImpl implements DaoService<Barang> {
         try {
             try (Connection connection = Koneksi.createConnection()) {
                 connection.setAutoCommit(false);
-                String query = "DELETE FROM barang WHERE idBarang=?";
+                String query = "DELETE FROM Barang WHERE idBarang=?";
                 PreparedStatement ps = connection.prepareStatement(query);
                 ps.setInt(1, object.getIdBarang());
                 if (ps.executeUpdate() != 0) {
@@ -82,13 +81,12 @@ public class BarangDaoImpl implements DaoService<Barang> {
             try (Connection connection = Koneksi.createConnection()) {
                 connection.setAutoCommit(false);
                 String query
-                        = "UPDATE Barang SET idBarang = ? ,NamaBrg = ?,HargaBeli = ?, HargaJual = ?,Stock = ? WHERE idbarang = ?";
+                        = "UPDATE Barang SET NamaBrg = ?,HargaBeli = ?, HargaJual = ?,Stock = ? WHERE idBarang = ?";
                 PreparedStatement ps = connection.prepareStatement(query);
-                ps.setInt(1, object.getIdBarang());
-                ps.setString(2, object.getNamaBrg());
-                ps.setInt(3, object.getHargaBeli());
-                ps.setInt(4, object.getHargaJual());
-                ps.setInt(5, object.getStock());
+                ps.setString(1, object.getNamaBrg());
+                ps.setInt(2, object.getHargaBeli());
+                ps.setInt(3, object.getHargaJual());
+                ps.setInt(4, object.getStock());
                 if (ps.executeUpdate() != 0) {
                     connection.commit();
                     result = 1;

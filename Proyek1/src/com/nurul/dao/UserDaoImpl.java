@@ -45,7 +45,7 @@ public class UserDaoImpl implements DaoService<User> {
                 ps.setInt(7, object.getRole_idRole().getIdRole());
                 if (ps.executeUpdate() != 0) {
                     connection.commit();
-
+                    result = 1;
                 } else {
                     connection.rollback();
                 }
@@ -62,7 +62,7 @@ public class UserDaoImpl implements DaoService<User> {
         try {
             try (Connection connection = Koneksi.createConnection()) {
                 connection.setAutoCommit(false);
-                String query = "DELETE FROM User WHERE id=?";
+                String query = "DELETE FROM User WHERE idUser=?";
                 PreparedStatement ps = connection.prepareStatement(query);
                 ps.setString(1, object.getIdUser());
                 if (ps.executeUpdate() != 0) {
@@ -85,8 +85,8 @@ public class UserDaoImpl implements DaoService<User> {
         try {
             try (Connection connection = Koneksi.createConnection()) {
                 connection.setAutoCommit(false);
-                String query = "UPDATE User SET name=?,price=?,description=?,"
-                        + "recomended=?,created=?,category_id=? WHERE id=?";
+                String query
+                        = "UPDATE User SET idUser = ?, Nama = ?, Alamat = ?, Phone_Number = ?, Email = ? WHERE idUser = ?";
                 PreparedStatement ps = connection.prepareStatement(query);
                 ps.setString(1, object.getIdUser());
                 ps.setString(2, object.getNama());
@@ -110,20 +110,32 @@ public class UserDaoImpl implements DaoService<User> {
 
     @Override
     public List<User> showAllData() {
-        ObservableList<User> users = FXCollections.observableArrayList();
+        ObservableList<User> usr = FXCollections.observableArrayList();
         try {
             try (Connection connection = Koneksi.createConnection()) {
-                String query = "SELECT m.*, c.id AS cat_id, c.name AS "
-                        + "cat_name FROM menu m JOIN category c on c.id "
-                        + "= m.category_id ORDER BY c.id ASC, m.id";
+                String query = "SELECT * FROM User;";
                 PreparedStatement ps = connection.prepareStatement(query);
                 ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    User us = new User();
+                    us.setIdUser(rs.getString("idUser"));
+                    us.setNama(rs.getString("Nama"));
+                    us.setAlamat(rs.getString("Alamat"));
+                    us.setPhone_Number(rs.getString("Phone_Number"));
+                    us.setPassword(rs.getString("Password"));
+                    us.setEmail(rs.getString("Email"));
+
+                    Role urole = new Role();
+                    urole.setIdRole(rs.getInt("u.Role_idRole"));
+                    us.setRole_idRole(urole);
+                    usr.add(us);
+                }
 
             }
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex);
         }
-        return users;
+        return usr;
     }
 
     public User getData(User id) {
@@ -134,12 +146,19 @@ public class UserDaoImpl implements DaoService<User> {
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setString(1, id.getIdUser());
             ps.setString(2, id.getPassword());
+//            ps.setString(3, id.getAlamat());
+//            ps.setString(4, id.getPhone_Number());
+//            ps.setString(5, id.getPassword());
+//            ps.setString(6, id.getEmail());
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 User user = new User();
                 user.setIdUser(rs.getString("u.idUser"));
+//                user.setNama(rs.getString("u.Nama"));
+//                user.setAlamat(rs.getString("u.Alamat"));
+//                user.setPhone_Number(rs.getString("u.Phone_Number"));
                 user.setPassword(rs.getString("u.Password"));
-                // user.setNama(rs.getString("u.Nama"));
+//                user.setEmail(rs.getString("u.Email"));
 
                 Role urole = new Role();
                 urole.setIdRole(rs.getInt("u.Role_idRole"));

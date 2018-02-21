@@ -72,9 +72,9 @@ public class AddBarangController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         tblVBarang.setItems(getBarangs());
-//        colKd_Barang.
-//                setCellValueFactory(data -> data.getValue().
-//                kd_BarangProperty().asObject());
+        colKdBarang.
+                setCellValueFactory(data -> data.getValue().
+                idBarangProperty().asObject());
         colNamaBarang.
                 setCellValueFactory(data -> data.getValue().NamaBrgProperty());
         colHargaBrg.
@@ -101,12 +101,12 @@ public class AddBarangController implements Initializable {
                     valueOf(txtHrgJual.getText().trim()));
             barang.setStock(Integer.
                     valueOf(txtJmlBarang.getText().trim()));
-
             if (getBarangDao().addData(barang) == 1) {
                 getBarangs().clear();
                 getBarangs().addAll(getBarangDao().showAllData());
                 tblVBarang.refresh();
             }
+            txtKdBarang.clear();
             txtNamaBarang.clear();
             txtHrgBarang.clear();
             txtHrgJual.clear();
@@ -120,38 +120,69 @@ public class AddBarangController implements Initializable {
 
     @FXML
     private void btnHapusItemAction(ActionEvent event) {
+        if (!Utility.isEmptyField(txtNamaBarang, txtHrgBarang,
+                txtHrgJual, txtJmlBarang)) {
+            selectedBarang.setIdBarang(Integer.valueOf(txtKdBarang.getText()));
+            selectedBarang.setNamaBrg(txtNamaBarang.getText().trim());
+            selectedBarang.setHargaBeli(Integer.
+                    valueOf(txtHrgBarang.getText().trim()));
+            selectedBarang.setHargaJual(Integer.
+                    valueOf(txtHrgJual.getText().trim()));
+            selectedBarang.setStock(Integer.
+                    valueOf(txtJmlBarang.getText().trim()));
+            if (getBarangDao().deleteData(selectedBarang) == 1) {
+                getBarangs().clear();;
+                getBarangs().addAll(getBarangDao().showAllData());
+//
+//                barangs.addAll(getBarangDao().showAllData());
+                tblVBarang.refresh();
+
+            }
+
+//            mengkosongkan teks field setelah isi data
+            txtKdBarang.clear();
+            txtNamaBarang.clear();
+            txtHrgBarang.clear();
+            txtHrgJual.clear();
+            txtJmlBarang.clear();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Pilih barang terlebih dahulu");
+            alert.showAndWait();
+        }
     }
 
     @FXML
     private void btnUpdateItemAction(ActionEvent event) {
-        Utility utility = new Utility();
-        if (!utility.isEmptyField(txtNamaBarang, txtHrgBarang,
-                txtHrgJual, txtHrgJual)) {
-            Barang barang = new Barang();
-            barang.setNamaBrg(txtNamaBarang.getText().trim());
-            barang.setHargaBeli(Integer.
+
+        if (!Utility.isEmptyField(txtNamaBarang, txtHrgBarang,
+                txtHrgJual, txtJmlBarang)) {
+            selectedBarang.setIdBarang(selectedBarang.getIdBarang());
+            selectedBarang.setNamaBrg(txtNamaBarang.getText().trim());
+            selectedBarang.setHargaBeli(Integer.
                     valueOf(txtHrgBarang.getText().trim()));
-            barang.setHargaJual(Integer.
+            selectedBarang.setHargaJual(Integer.
                     valueOf(txtHrgJual.getText().trim()));
-            barang.setStock(Integer.
+            selectedBarang.setStock(Integer.
                     valueOf(txtJmlBarang.getText().trim()));
-            if (getBarangDao().updateData(barang) == 1) {
+            if (getBarangDao().updateData(selectedBarang) == 1) {
                 getBarangs().clear();
                 getBarangs().addAll(getBarangDao().showAllData());
 
                 tblVBarang.refresh();
                 //mengkosongkan teks field setelah isi data
+                txtKdBarang.clear();
                 txtNamaBarang.clear();
                 txtHrgBarang.clear();
                 txtHrgJual.clear();
                 txtJmlBarang.clear();
                 selectedBarang = null;
 
-            } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setContentText("Silahkan ketik ulang");
-                alert.showAndWait();
             }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Silahkan ketik ulang");
+            alert.showAndWait();
         }
     }
 
@@ -192,6 +223,9 @@ public class AddBarangController implements Initializable {
         btnHapusItem.setDisable(false);
 
         if (selectedBarang != null) {
+
+            txtKdBarang.setDisable(true);
+            txtKdBarang.setText(String.valueOf(selectedBarang.getIdBarang()));
             txtNamaBarang.setText(selectedBarang.getNamaBrg());
             txtHrgBarang.setText(String.valueOf(selectedBarang.getHargaBeli()));
             txtHrgJual.setText(String.valueOf(selectedBarang.getHargaJual()));

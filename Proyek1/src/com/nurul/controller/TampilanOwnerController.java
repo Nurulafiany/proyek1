@@ -38,7 +38,6 @@ public class TampilanOwnerController implements Initializable {
     @FXML
     private Button btnLaporan;
 
-    private Stage barangStage;
     @FXML
     private BorderPane borderPane;
 
@@ -47,6 +46,9 @@ public class TampilanOwnerController implements Initializable {
     private BarangDaoImpl barangDao;
 
     private TampilanOwnerController mainController;
+
+    private Stage barangStage;
+    private Stage userStage;
 
     /**
      * Initializes the controller class.
@@ -85,6 +87,29 @@ public class TampilanOwnerController implements Initializable {
 
     @FXML
     private void btnAddUserAction(ActionEvent event) {
+        try {
+            if (userStage == null) {
+                userStage = new Stage();
+                userStage.setTitle("Users Management");
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(MainApp.class.getResource(
+                        "view/AddUser.fxml"));
+                BorderPane root = loader.load();
+                Scene scene = new Scene(root);
+                AddUserController addUsr = loader.getController();
+                addUsr.setMainController(this);
+                userStage.setScene(scene);
+                userStage.initOwner(borderPane.getScene().getWindow());
+                userStage.initModality(Modality.WINDOW_MODAL);
+            }
+            if (!userStage.isShowing()) {
+                userStage.show();
+            } else {
+                userStage.toFront();
+            }
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
     }
 
     @FXML
