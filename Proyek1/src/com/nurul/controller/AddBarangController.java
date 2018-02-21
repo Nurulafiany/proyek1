@@ -20,6 +20,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 /**
@@ -63,12 +64,28 @@ public class AddBarangController implements Initializable {
     private ObservableList<Barang> barangs;
     private Stage barangStage;
     private BarangDaoImpl barangDao;
+    public Barang selectedBarang;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        tblVBarang.setItems(getBarangs());
+//        colKd_Barang.
+//                setCellValueFactory(data -> data.getValue().
+//                kd_BarangProperty().asObject());
+        colNamaBarang.
+                setCellValueFactory(data -> data.getValue().NamaBrgProperty());
+        colHargaBrg.
+                setCellValueFactory(data -> data.getValue().
+                HargaBeliProperty().asObject());
+        colHargaJual.
+                setCellValueFactory(data -> data.getValue().
+                HargaJualProperty().asObject());
+        colJmlBrg.
+                setCellValueFactory(data -> data.getValue().
+                StockProperty().asObject());
     }
 
     @FXML
@@ -86,8 +103,9 @@ public class AddBarangController implements Initializable {
                     valueOf(txtJmlBarang.getText().trim()));
 
             if (getBarangDao().addData(barang) == 1) {
-                getBarang().clear();
-                getBarang().addAll(getBarangDao().showAllData());
+                getBarangs().clear();
+                getBarangs().addAll(getBarangDao().showAllData());
+                tblVBarang.refresh();
             }
             txtNamaBarang.clear();
             txtHrgBarang.clear();
@@ -106,7 +124,8 @@ public class AddBarangController implements Initializable {
 
     @FXML
     private void btnUpdateItemAction(ActionEvent event) {
-        if (!Utility.isEmptyField(txtNamaBarang, txtHrgBarang,
+        Utility utility = new Utility();
+        if (!utility.isEmptyField(txtNamaBarang, txtHrgBarang,
                 txtHrgJual, txtHrgJual)) {
             Barang barang = new Barang();
             barang.setNamaBrg(txtNamaBarang.getText().trim());
@@ -116,17 +135,23 @@ public class AddBarangController implements Initializable {
                     valueOf(txtHrgJual.getText().trim()));
             barang.setStock(Integer.
                     valueOf(txtJmlBarang.getText().trim()));
-            getBarangDao().updateData(barang);
-            getBarang().clear();
-            getBarang().addAll(getBarangDao().showAllData());
-            //mainController.getDepartmentDao().updateData(selectedDepartment);
-            //mainController.getDepartments().clear();
-            //mainController.getDepartments().addAll(mainController.getDepartmentDao().showAllData());
-            //this.resetFieldAndButton();
-        } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Silahkan ketik ulang");
-            alert.showAndWait();
+            if (getBarangDao().updateData(barang) == 1) {
+                getBarangs().clear();
+                getBarangs().addAll(getBarangDao().showAllData());
+
+                tblVBarang.refresh();
+                //mengkosongkan teks field setelah isi data
+                txtNamaBarang.clear();
+                txtHrgBarang.clear();
+                txtHrgJual.clear();
+                txtJmlBarang.clear();
+                selectedBarang = null;
+
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("Silahkan ketik ulang");
+                alert.showAndWait();
+            }
         }
     }
 
@@ -137,7 +162,7 @@ public class AddBarangController implements Initializable {
         return barangDao;
     }
 
-    public ObservableList<Barang> getBarang() {
+    public ObservableList<Barang> getBarangs() {
 
         if (barangs == null) {
             barangs = FXCollections.observableArrayList();
@@ -149,7 +174,7 @@ public class AddBarangController implements Initializable {
     public void setMainController(TampilanOwnerController mainController) {
         //   categoryDao = new CategoryDaoImpl();
         this.mainController = mainController;
-        tblVBarang.setItems(getBarang());
+        tblVBarang.setItems(getBarangs());
         colKdBarang.setCellValueFactory(p -> p.getValue().idBarangProperty().
                 asObject());
         colNamaBarang.setCellValueFactory(p -> p.getValue().NamaBrgProperty());
@@ -159,5 +184,20 @@ public class AddBarangController implements Initializable {
                 asObject());
         colJmlBrg.setCellValueFactory(p -> p.getValue().StockProperty().
                 asObject());
+    }
+
+    @FXML
+    private void tblBrgOnClick(MouseEvent event) {
+        selectedBarang = tblVBarang.getSelectionModel().getSelectedItem();
+        btnHapusItem.setDisable(false);
+
+        if (selectedBarang != null) {
+            txtNamaBarang.setText(selectedBarang.getNamaBrg());
+            txtHrgBarang.setText(String.valueOf(selectedBarang.getHargaBeli()));
+            txtHrgJual.setText(String.valueOf(selectedBarang.getHargaJual()));
+            txtJmlBarang.setText(String.valueOf(selectedBarang.getStock()));
+
+        }
+
     }
 }

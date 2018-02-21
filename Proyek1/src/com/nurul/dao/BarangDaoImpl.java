@@ -27,13 +27,12 @@ public class BarangDaoImpl implements DaoService<Barang> {
 
     @Override
     public int addData(Barang object) {
-        Timestamp t = new Timestamp(System.currentTimeMillis());
         int result = 0;
         try {
             try (Connection connection = Koneksi.createConnection()) {
                 connection.setAutoCommit(false);
                 String query
-                        = "INSERT INTO Barang(idBarang,NamaBrg,HargaBeli,HargaJual,Stock) VALUES (?,?,?,?,?,?)";
+                        = "INSERT INTO Barang(idBarang,NamaBrg,HargaBeli,HargaJual,Stock) VALUES (?,?,?,?,?)";
                 PreparedStatement ps = connection.prepareStatement(query);
                 ps.setInt(1, object.getIdBarang());
                 ps.setString(2, object.getNamaBrg());
@@ -42,6 +41,7 @@ public class BarangDaoImpl implements DaoService<Barang> {
                 ps.setInt(5, object.getStock());
                 if (ps.executeUpdate() != 0) {
                     connection.commit();
+                    result = 1;
 
                 } else {
                     connection.rollback();
@@ -77,14 +77,12 @@ public class BarangDaoImpl implements DaoService<Barang> {
 
     @Override
     public int updateData(Barang object) {
-        Timestamp t = new Timestamp(System.currentTimeMillis());
         int result = 0;
         try {
             try (Connection connection = Koneksi.createConnection()) {
                 connection.setAutoCommit(false);
                 String query
-                        = "UPDATE Barang SET idBarang=?,NamaBrg=?,HargaBeli=?,"
-                        + "HargaJual=?,Stock=?";
+                        = "UPDATE Barang SET idBarang = ? ,NamaBrg = ?,HargaBeli = ?, HargaJual = ?,Stock = ? WHERE idbarang = ?";
                 PreparedStatement ps = connection.prepareStatement(query);
                 ps.setInt(1, object.getIdBarang());
                 ps.setString(2, object.getNamaBrg());
@@ -114,11 +112,11 @@ public class BarangDaoImpl implements DaoService<Barang> {
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
                     Barang bar = new Barang();
-                    bar.setIdBarang(rs.getInt("Kd_barang"));
-                    bar.setNamaBrg(rs.getString("nama_brng"));
-                    bar.setHargaBeli(rs.getInt("jumlah"));
-                    bar.setHargaJual(rs.getInt("harga_modal"));
-                    bar.setStock(rs.getInt("harga"));
+                    bar.setIdBarang(rs.getInt("idBarang"));
+                    bar.setNamaBrg(rs.getString("NamaBrg"));
+                    bar.setHargaBeli(rs.getInt("HargaBeli"));
+                    bar.setHargaJual(rs.getInt("HargaJual"));
+                    bar.setStock(rs.getInt("Stock"));
 
                     brg.add(bar);
                 }

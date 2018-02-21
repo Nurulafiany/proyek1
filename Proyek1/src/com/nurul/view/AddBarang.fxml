@@ -121,7 +121,7 @@
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="3">
                      <children>
-                        <TableView fx:id="tblVBarang" prefHeight="155.0" prefWidth="1007.0">
+                        <TableView fx:id="tblVBarang" onMouseClicked="#tblBrgOnClick" prefHeight="155.0" prefWidth="1007.0">
                           <columns>
                             <TableColumn fx:id="colKdBarang" prefWidth="172.33334350585938" text="Kd Barang" />
                               <TableColumn fx:id="colNamaBarang" prefWidth="368.6666564941406" text="Nama Barang" />
