@@ -16,6 +16,8 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  *
@@ -37,6 +39,7 @@ public class RoleDaoImpl implements DaoService<Role> {
                 ps.setString(2, object.getStatus());
                 if (ps.executeUpdate() != 0) {
                     connection.commit();
+                    result = 1;
 
                 } else {
                     connection.rollback();
@@ -50,17 +53,73 @@ public class RoleDaoImpl implements DaoService<Role> {
 
     @Override
     public int deleteData(Role object) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int result = 0;
+        try {
+            try (Connection connection = Koneksi.createConnection()) {
+                connection.setAutoCommit(false);
+                String query
+                        = "DELETE FROM Role WHERE idRole = ?";
+                PreparedStatement ps = connection.prepareStatement(query);
+                ps.setInt(1, object.getIdRole());
+                ps.setString(2, object.getStatus());
+                if (ps.executeUpdate() != 0) {
+                    connection.commit();
+                    result = 1;
+                } else {
+                    connection.rollback();
+                }
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            System.out.println(ex);
+        }
+        return result;
     }
 
     @Override
     public int updateData(Role object) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int result = 0;
+        try {
+            try (Connection connection = Koneksi.createConnection()) {
+                connection.setAutoCommit(false);
+                String query
+                        = "UPDATE Role SET idRole = ?, Status = ? WHERE idRole = ?";
+                PreparedStatement ps = connection.prepareStatement(query);
+                ps.setInt(1, object.getIdRole());
+                ps.setString(2, object.getStatus());
+                if (ps.executeUpdate() != 0) {
+                    connection.commit();
+                    result = 1;
+                } else {
+                    connection.rollback();
+                }
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            System.out.println(ex);
+        }
+        return result;
     }
 
     @Override
     public List<Role> showAllData() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ObservableList<Role> ro = FXCollections.observableArrayList();
+        try {
+            try (Connection connection = Koneksi.createConnection()) {
+                String query
+                        = "SELECT * FROM Role;";
+                PreparedStatement ps = connection.prepareStatement(query);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    Role role = new Role();
+                    role.setIdRole(rs.getInt("idRole"));
+                    role.setStatus(rs.getString("Status"));
+
+                    ro.add(role);
+                }
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            System.out.println(ex);
+        }
+        return ro;
     }
 
     @Override
@@ -68,10 +127,9 @@ public class RoleDaoImpl implements DaoService<Role> {
         try (Connection connection = Koneksi.createConnection()) {
             connection.setAutoCommit(false);
             String query
-                    = "SELECT idRole, Status FROM Role";
+                    = "SELECT * FROM Role WHERE idRole=?";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, id.getIdRole());
-            ps.setString(2, id.getStatus());
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 Role role = new Role();

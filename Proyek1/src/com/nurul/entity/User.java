@@ -18,17 +18,17 @@ import javafx.beans.property.StringProperty;
  */
 public class User {
 
-    private final StringProperty idUser = new SimpleStringProperty();
+    private final IntegerProperty idUser = new SimpleIntegerProperty();
 
-    public String getIdUser() {
+    public int getIdUser() {
         return idUser.get();
     }
 
-    public void setIdUser(String value) {
+    public void setIdUser(int value) {
         idUser.set(value);
     }
 
-    public StringProperty idUserProperty() {
+    public IntegerProperty idUserProperty() {
         return idUser;
     }
     private final StringProperty Alamat = new SimpleStringProperty();
@@ -83,7 +83,8 @@ public class User {
     public StringProperty EmailProperty() {
         return Email;
     }
-    private final ObjectProperty<Role> Role_idRole = new SimpleObjectProperty<>();
+    private final ObjectProperty<Role> Role_idRole
+            = new SimpleObjectProperty<>();
 
     public Role getRole_idRole() {
         return Role_idRole.get();
@@ -96,7 +97,6 @@ public class User {
     public ObjectProperty Role_idRoleProperty() {
         return Role_idRole;
     }
-   
 
 //    String idUser;
 //    String Nama;

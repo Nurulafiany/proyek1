@@ -50,9 +50,9 @@ public class LoginController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }
-    
+
     public ObservableList<User> users;
-    
+
     public ObservableList<User> geUsers() {
         if (users == null) {
             users = FXCollections.observableArrayList();
@@ -60,7 +60,7 @@ public class LoginController implements Initializable {
         }
         return users;
     }
-    
+
     public UserDaoImpl getUserDao() {
 
         if (userDaoImpl == null) {
@@ -68,11 +68,12 @@ public class LoginController implements Initializable {
         }
         return userDaoImpl;
     }
-    
+
     @FXML
     private void btnLoginAction(ActionEvent event) throws IOException {
+        System.out.println(txtUsername.getText() + " " + txtPassword.getText());
         User user = new User();
-        user.setIdUser(txtUsername.getText());
+        user.setIdUser(Integer.valueOf(txtUsername.getText()));
         user.setPassword(txtPassword.getText());
         if (getUserDao().getData(user) != null) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -83,15 +84,16 @@ public class LoginController implements Initializable {
             if (getUserDao().getData(user).getRole_idRole().getIdRole() == 1) {
                 FXMLLoader loader = new FXMLLoader();
 
-                    loader.setLocation(MainApp.class.getResource(
-                            "view/TampilanOwner.fxml"));
-                    BorderPane pane = loader.load();
-                    Scene scene = new Scene(pane);
-                    Stage secondStage = new Stage();
-                    secondStage.setScene(scene);
-                    secondStage.setTitle("Owner Form");
-                    secondStage.show();
-                } else if (getUserDao().getData(user).getRole_idRole().getIdRole() == 2) {
+                loader.setLocation(MainApp.class.getResource(
+                        "view/TampilanOwner.fxml"));
+                BorderPane pane = loader.load();
+                Scene scene = new Scene(pane);
+                Stage secondStage = new Stage();
+                secondStage.setScene(scene);
+                secondStage.setTitle("Owner Form");
+                secondStage.show();
+            } else if (getUserDao().getData(user).getRole_idRole().getIdRole()
+                    == 2) {
                 FXMLLoader loader = new FXMLLoader();
                 loader.setLocation(MainApp.class.getResource(
                         "view/TampilanKasir.fxml"));
@@ -103,12 +105,12 @@ public class LoginController implements Initializable {
                 secondStage.show();
             }
 
-                //Close Login Stage
-                bpLogin.getScene().getWindow().hide();
-            } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setContentText("Username atau Password anda salah!");
-                alert.showAndWait();
-            }
+            //Close Login Stage
+            bpLogin.getScene().getWindow().hide();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Username atau Password anda salah!");
+            alert.showAndWait();
         }
+    }
 }

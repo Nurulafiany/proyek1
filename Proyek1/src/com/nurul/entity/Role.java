@@ -71,4 +71,9 @@ public class Role {
         return Status;
     }
 
+    @Override
+    public String toString() {
+        return getStatus();
+    }
+
 }

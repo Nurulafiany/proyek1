@@ -5,12 +5,14 @@
  */
 package com.nurul.controller;
 
+import com.nurul.dao.RoleDaoImpl;
 import com.nurul.dao.UserDaoImpl;
 import com.nurul.entity.Role;
 import com.nurul.entity.User;
 import com.nurul.utility.Utility;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -54,7 +56,7 @@ public class AddUserController implements Initializable {
     @FXML
     private TableView<User> tblVuser;
     @FXML
-    private TableColumn<User, String> ColKdUser;
+    private TableColumn<User, Integer> ColKdUser;
     @FXML
     private TableColumn<User, String> ColFullNameUs;
     @FXML
@@ -67,14 +69,16 @@ public class AddUserController implements Initializable {
     private TableColumn<User, String> ColEmailUs;
 
     private ObservableList<User> users;
-    private Stage userStageStage;
+    private Stage userStage;
     private UserDaoImpl userDao;
     public User selectedUser;
+    private RoleDaoImpl roleDao;
+    public Role selectedRole;
     private TampilanOwnerController mainController;
     @FXML
     private ComboBox<Role> CBStatus;
     @FXML
-    private TableColumn<Role, Integer> ColStatusUs;
+    private TableColumn<User, String> ColStatusUs;
 
     private ObservableList<Role> roles;
 
@@ -84,8 +88,10 @@ public class AddUserController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         tblVuser.setItems(getUsers());
+//        CBStatus.setItems(getRoles());
         ColKdUser.
-                setCellValueFactory(data -> data.getValue().idUserProperty());
+                setCellValueFactory(data -> data.getValue().idUserProperty().
+                asObject());
         ColFullNameUs.
                 setCellValueFactory(data -> data.getValue().NamaProperty());
         ColAlamatUs.
@@ -97,8 +103,12 @@ public class AddUserController implements Initializable {
                 setCellValueFactory(data -> data.getValue().PasswordProperty());
         ColEmailUs.
                 setCellValueFactory(data -> data.getValue().EmailProperty());
-//        ColStatusUs.setCellValueFactory(data
-//                -> data.getValue().getIdRole().StatusProperty());
+        ColStatusUs.
+                setCellValueFactory((
+                        TableColumn.CellDataFeatures<User, String> param)
+                        -> new SimpleStringProperty(param.getValue().
+                        getRole_idRole().getStatus()));
+        CBStatus.setItems(getRoles());
     }
 
     public ObservableList<User> getUsers() {
@@ -117,6 +127,22 @@ public class AddUserController implements Initializable {
         return userDao;
     }
 
+    public ObservableList<Role> getRoles() {
+
+        if (roles == null) {
+            roles = FXCollections.observableArrayList();
+            roles.addAll(getRoleDao().showAllData());
+        }
+        return roles;
+    }
+
+    public RoleDaoImpl getRoleDao() {
+        if (roleDao == null) {
+            roleDao = new RoleDaoImpl();
+        }
+        return roleDao;
+    }
+
     @FXML
     private void btnTambahUserOnAction(ActionEvent event) {
 
@@ -124,7 +150,6 @@ public class AddUserController implements Initializable {
         if (!utility.isEmptyField(txtKdUserUs, txtFullNameUs,
                 txtAlamatUs, txtNoHP, txtPasswordUs, txtEmailUs)) {
             User user = new User();
-            user.setIdUser(txtKdUserUs.getText().trim());
             user.setNama(txtFullNameUs.getText().trim());
             user.setAlamat(txtAlamatUs.getText().trim());
             user.setPhone_Number(txtNoHP.getText().trim());
@@ -152,14 +177,12 @@ public class AddUserController implements Initializable {
     private void btnHapusUserOnAction(ActionEvent event) {
         if (!Utility.isEmptyField(txtKdUserUs, txtFullNameUs,
                 txtAlamatUs, txtNoHP, txtPasswordUs, txtEmailUs)) {
-            User user = new User();
-            user.setIdUser(txtKdUserUs.getText().trim());
-            user.setNama(txtFullNameUs.getText().trim());
-            user.setAlamat(txtAlamatUs.getText().trim());
-            user.setPhone_Number(txtNoHP.getText().trim());
-            user.setPassword(txtPasswordUs.getText().trim());
-            user.setEmail(txtEmailUs.getText().trim());
-            if (getUserDao().deleteData(user) == 1) {
+            selectedUser.setNama(txtFullNameUs.getText().trim());
+            selectedUser.setAlamat(txtAlamatUs.getText().trim());
+            selectedUser.setPhone_Number(txtNoHP.getText().trim());
+            selectedUser.setPassword(txtPasswordUs.getText().trim());
+            selectedUser.setEmail(txtEmailUs.getText().trim());
+            if (getUserDao().deleteData(selectedUser) == 1) {
                 getUsers().clear();
                 getUsers().addAll(getUserDao().showAllData());
                 tblVuser.refresh();
@@ -181,14 +204,13 @@ public class AddUserController implements Initializable {
     private void btnUpdateUser(ActionEvent event) {
         if (!Utility.isEmptyField(txtKdUserUs, txtFullNameUs,
                 txtAlamatUs, txtNoHP, txtPasswordUs, txtEmailUs)) {
-            User user = new User();
-            user.setIdUser(txtKdUserUs.getText().trim());
-            user.setNama(txtFullNameUs.getText().trim());
-            user.setAlamat(txtAlamatUs.getText().trim());
-            user.setPhone_Number(txtNoHP.getText().trim());
-            user.setPassword(txtPasswordUs.getText().trim());
-            user.setEmail(txtEmailUs.getText().trim());
-            if (getUserDao().updateData(user) == 1) {
+            selectedUser.setIdUser(selectedUser.getIdUser());
+            selectedUser.setNama(txtFullNameUs.getText().trim());
+            selectedUser.setAlamat(txtAlamatUs.getText().trim());
+            selectedUser.setPhone_Number(txtNoHP.getText().trim());
+            selectedUser.setPassword(txtPasswordUs.getText().trim());
+            selectedUser.setEmail(txtEmailUs.getText().trim());
+            if (getUserDao().updateData(selectedUser) == 1) {
                 getUsers().clear();
                 getUsers().addAll(getUserDao().showAllData());
                 tblVuser.refresh();
@@ -210,7 +232,8 @@ public class AddUserController implements Initializable {
         //   categoryDao = new CategoryDaoImpl();
         this.mainController = mainController;
         tblVuser.setItems(getUsers());
-        ColKdUser.setCellValueFactory(p -> p.getValue().idUserProperty());
+        ColKdUser.setCellValueFactory(p -> p.getValue().idUserProperty().
+                asObject());
         ColFullNameUs.setCellValueFactory(p -> p.getValue().NamaProperty());
         ColAlamatUs.setCellValueFactory(p -> p.getValue().AlamatProperty());
         ColNoHPUs.setCellValueFactory(p -> p.getValue().Phone_NumberProperty());
@@ -226,12 +249,13 @@ public class AddUserController implements Initializable {
         if (selectedUser != null) {
 
             txtKdUserUs.setDisable(true);
-            txtKdUserUs.setText(selectedUser.getIdUser());
+            txtKdUserUs.setText(String.valueOf(selectedUser.getIdUser()));
             txtFullNameUs.setText(selectedUser.getNama());
             txtAlamatUs.setText(selectedUser.getAlamat());
             txtNoHP.setText(selectedUser.getPhone_Number());
             txtPasswordUs.setText(selectedUser.getPassword());
             txtEmailUs.setText(selectedUser.getEmail());
+            CBStatus.setValue(selectedUser.getRole_idRole());
         }
 
     }
