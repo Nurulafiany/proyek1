@@ -91,11 +91,12 @@ public class AddUserController implements Initializable {
         ColAlamatUs.
                 setCellValueFactory(data -> data.getValue().AlamatProperty());
         ColNoHPUs.
-                setCellValueFactory(data -> data.getValue().AlamatProperty());
+                setCellValueFactory(data -> data.getValue().
+                Phone_NumberProperty());
         ColPasswordUs.
-                setCellValueFactory(data -> data.getValue().AlamatProperty());
+                setCellValueFactory(data -> data.getValue().PasswordProperty());
         ColEmailUs.
-                setCellValueFactory(data -> data.getValue().AlamatProperty());
+                setCellValueFactory(data -> data.getValue().EmailProperty());
 //        ColStatusUs.setCellValueFactory(data
 //                -> data.getValue().getIdRole().StatusProperty());
     }
