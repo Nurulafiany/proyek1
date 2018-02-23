@@ -8,33 +8,19 @@ package com.nurul.controller;
 import com.nurul.MainApp;
 import com.nurul.dao.BarangDaoImpl;
 import com.nurul.entity.Barang;
-import com.nurul.utility.Koneksi;
-import com.nurul.utility.ViewUtil;
 import java.net.URL;
-import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.ResourceBundle;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.ObservableList;
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.view.JasperViewer;
 
 /**
  * FXML Controller class
@@ -42,6 +28,8 @@ import net.sf.jasperreports.view.JasperViewer;
  * @author Nurul
  */
 public class TampilanOwnerController implements Initializable {
+
+    private AddBarangController addBrg;
 
     @FXML
     private Button btnAddBarang;
@@ -128,30 +116,30 @@ public class TampilanOwnerController implements Initializable {
 
     @FXML
     private void btnLaporanAction(ActionEvent event) {
-        Task<Void> task = new Task<Void>() {
-            @Override
-            protected Void call() throws Exception {
-                try {
-                    HashMap parameters = new HashMap();
-                    JasperPrint jasperPrint = JasperFillManager.fillReport(
-                            "report/Demo_Report1.jasper",
-                            parameters, Koneksi.createConnection());
-                    JasperViewer jasperViewer = new JasperViewer(jasperPrint,
-                            false);
-                    jasperViewer.setVisible(true);
-                } catch (ClassNotFoundException | SQLException | JRException ex) {
-                    Logger.getLogger(TampilanOwnerController.class.getName()).
-                            log(
-                                    Level.SEVERE, null, ex);
-                    ViewUtil.showAlert(Alert.AlertType.ERROR, "Error", ex.
-                            getMessage());
-                }
-                return null;
-            }
-        };
-        ExecutorService service = Executors.newCachedThreadPool();
-        service.execute(task);
-        service.shutdown();
+//        Task<Void> task = new Task<Void>() {
+//            @Override
+//            protected Void call() throws Exception {
+//                try {
+//                    HashMap parameters = new HashMap();
+//                    JasperPrint jasperPrint = JasperFillManager.fillReport(
+//                            "report/Demo_Report1.jasper",
+//                            parameters, Koneksi.createConnection());
+//                    JasperViewer jasperViewer = new JasperViewer(jasperPrint,
+//                            false);
+//                    jasperViewer.setVisible(true);
+//                } catch (ClassNotFoundException | SQLException | JRException ex) {
+//                    Logger.getLogger(TampilanOwnerController.class.getName()).
+//                            log(
+//                                    Level.SEVERE, null, ex);
+//                    ViewUtil.showAlert(Alert.AlertType.ERROR, "Error", ex.
+//                            getMessage());
+//                }
+//                return null;
+//            }
+//        };
+//        ExecutorService service = Executors.newCachedThreadPool();
+//        service.execute(task);
+//        service.shutdown();
     }
 
 }

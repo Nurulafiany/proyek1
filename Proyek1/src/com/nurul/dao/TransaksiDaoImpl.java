@@ -36,7 +36,7 @@ public class TransaksiDaoImpl implements DaoService<Transaksi> {
                 ps.setInt(1, object.getIdTransaksi());
                 ps.setTimestamp(2, t);
                 ps.setInt(3, object.getPembayaran());
-                ps.setString(4, object.getUser_idUser());
+                ps.setInt(4, object.getUser_idUser());
                 if (ps.executeUpdate() != 0) {
                     connection.commit();
 
@@ -79,14 +79,14 @@ public class TransaksiDaoImpl implements DaoService<Transaksi> {
             ps.setInt(1, id.getIdTransaksi());
             ps.setTimestamp(2, t);
             ps.setInt(3, id.getPembayaran());
-            ps.setString(4, id.getUser_idUser());
+            ps.setInt(4, id.getUser_idUser());
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 Transaksi tr = new Transaksi();
                 tr.setIdTransaksi(rs.getInt("tr.idTransaksi"));
                 //    tr.setTanggal(rs.getTimestamp("tr.Tanggal"));
                 tr.setPembayaran(rs.getInt("tr.pembayaran"));
-                tr.setUser_idUser(rs.getString("tr.User_idUser"));
+                tr.setUser_idUser(rs.getInt("tr.User_idUser"));
 
                 return tr;
             }

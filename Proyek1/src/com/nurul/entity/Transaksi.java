@@ -5,10 +5,11 @@
  */
 package com.nurul.entity;
 
+import java.sql.Timestamp;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.SimpleObjectProperty;
 
 /**
  *
@@ -29,20 +30,60 @@ public class Transaksi {
     public IntegerProperty idTransaksiProperty() {
         return idTransaksi;
     }
-    private final StringProperty User_idUser = new SimpleStringProperty();
+    private final IntegerProperty User_idUser = new SimpleIntegerProperty();
 
-    public String getUser_idUser() {
+    public Integer getUser_idUser() {
         return User_idUser.get();
     }
 
-    public void setUser_idUser(String value) {
+    public void setUser_idUser(Integer value) {
         User_idUser.set(value);
     }
 
-    public StringProperty User_idUserProperty() {
+    public IntegerProperty User_idUserProperty() {
         return User_idUser;
     }
 
+    private final IntegerProperty pembayaran = new SimpleIntegerProperty();
+
+    public int getPembayaran() {
+        return pembayaran.get();
+    }
+
+    public void setPembayaran(int value) {
+        pembayaran.set(value);
+    }
+
+    public IntegerProperty pembayaranProperty() {
+        return pembayaran;
+    }
+
+    private final ObjectProperty<Timestamp> Tanggal
+            = new SimpleObjectProperty<>();
+
+    public Timestamp getTanggal() {
+        return Tanggal.get();
+    }
+
+    public void setTanggal(Timestamp value) {
+        Tanggal.set(value);
+    }
+
+    public ObjectProperty TanggalProperty() {
+        return Tanggal;
+    }
+
+    public Transaksi() {
+    }
+
+    public Transaksi(int idTransaksi, int User_idUser, int pembayaran,
+            Timestamp Tanggal) {
+        this.setIdTransaksi(idTransaksi);
+        this.setUser_idUser(User_idUser);
+        this.setPembayaran(pembayaran);
+        this.setTanggal(Tanggal);
+    }
+}
 //    int idTransaksi;
 //    Timestamp Tanggal;
 //    int pembayaran;
@@ -89,18 +130,4 @@ public class Transaksi {
 //    public void setPembayaran(int pembayaran) {
 //        this.pembayaran = pembayaran;
 //    }
-    private final IntegerProperty pembayaran = new SimpleIntegerProperty();
 
-    public int getPembayaran() {
-        return pembayaran.get();
-    }
-
-    public void setPembayaran(int value) {
-        pembayaran.set(value);
-    }
-
-    public IntegerProperty pembayaranProperty() {
-        return pembayaran;
-    }
-
-}

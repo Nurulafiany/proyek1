@@ -6,7 +6,9 @@
 package com.nurul.entity;
 
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
 
 /**
  *
@@ -103,18 +105,19 @@ public class Detail_Transaksi {
 //    public void setHargaJual(Double HargaJual) {
 //        this.HargaJual = HargaJual;
 //    }
-    private final IntegerProperty Barang_idBarang = new SimpleIntegerProperty();
+    private final ObjectProperty<Barang> barang_IdBarang
+            = new SimpleObjectProperty<>();
 
-    public int getBarang_idBarang() {
-        return Barang_idBarang.get();
+    public Barang getBarang_IdBarang() {
+        return barang_IdBarang.get();
     }
 
-    public void setBarang_idBarang(int value) {
-        Barang_idBarang.set(value);
+    public void setBarang_IdBarang(Barang value) {
+        barang_IdBarang.set(value);
     }
 
-    public IntegerProperty Barang_idBarangProperty() {
-        return Barang_idBarang;
+    public ObjectProperty barang_IdBarangProperty() {
+        return barang_IdBarang;
     }
 
 }

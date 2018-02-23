@@ -26,12 +26,10 @@ import javafx.stage.Stage;
 /**
  * FXML Controller class
  *
- * @author Nurul
+ * @author Developer
  */
 public class AddBarangController implements Initializable {
 
-    @FXML
-    private TextField txtKdBarang;
     @FXML
     private TextField txtNamaBarang;
     @FXML
@@ -46,12 +44,8 @@ public class AddBarangController implements Initializable {
     private Button btnHapusItem;
     @FXML
     private Button btnUpdateItem;
-
-    private TampilanOwnerController mainController;
     @FXML
     private TableView<Barang> tblVBarang;
-    @FXML
-    private TableColumn<Barang, Integer> colKdBarang;
     @FXML
     private TableColumn<Barang, String> colNamaBarang;
     @FXML
@@ -65,6 +59,7 @@ public class AddBarangController implements Initializable {
     private Stage barangStage;
     private BarangDaoImpl barangDao;
     public Barang selectedBarang;
+    private TampilanOwnerController mainController;
 
     /**
      * Initializes the controller class.
@@ -72,9 +67,9 @@ public class AddBarangController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         tblVBarang.setItems(getBarangs());
-        colKdBarang.
-                setCellValueFactory(data -> data.getValue().
-                idBarangProperty().asObject());
+//        colKdBarang.
+//                setCellValueFactory(data -> data.getValue().
+//                idBarangProperty().asObject());
         colNamaBarang.
                 setCellValueFactory(data -> data.getValue().NamaBrgProperty());
         colHargaBrg.
@@ -106,7 +101,7 @@ public class AddBarangController implements Initializable {
                 getBarangs().addAll(getBarangDao().showAllData());
                 tblVBarang.refresh();
             }
-            txtKdBarang.clear();
+//            txtKdBarang.clear();
             txtNamaBarang.clear();
             txtHrgBarang.clear();
             txtHrgJual.clear();
@@ -122,7 +117,7 @@ public class AddBarangController implements Initializable {
     private void btnHapusItemAction(ActionEvent event) {
         if (!Utility.isEmptyField(txtNamaBarang, txtHrgBarang,
                 txtHrgJual, txtJmlBarang)) {
-            selectedBarang.setIdBarang(Integer.valueOf(txtKdBarang.getText()));
+
             selectedBarang.setNamaBrg(txtNamaBarang.getText().trim());
             selectedBarang.setHargaBeli(Integer.
                     valueOf(txtHrgBarang.getText().trim()));
@@ -130,17 +125,16 @@ public class AddBarangController implements Initializable {
                     valueOf(txtHrgJual.getText().trim()));
             selectedBarang.setStock(Integer.
                     valueOf(txtJmlBarang.getText().trim()));
+
             if (getBarangDao().deleteData(selectedBarang) == 1) {
-                getBarangs().clear();;
+                getBarangs().clear();
                 getBarangs().addAll(getBarangDao().showAllData());
-//
-//                barangs.addAll(getBarangDao().showAllData());
                 tblVBarang.refresh();
 
             }
 
 //            mengkosongkan teks field setelah isi data
-            txtKdBarang.clear();
+//            txtKdBarang.clear();
             txtNamaBarang.clear();
             txtHrgBarang.clear();
             txtHrgJual.clear();
@@ -154,10 +148,10 @@ public class AddBarangController implements Initializable {
 
     @FXML
     private void btnUpdateItemAction(ActionEvent event) {
-
         if (!Utility.isEmptyField(txtNamaBarang, txtHrgBarang,
                 txtHrgJual, txtJmlBarang)) {
-            selectedBarang.setIdBarang(selectedBarang.getIdBarang());
+
+//            selectedBarang.setIdBarang(selectedBarang.getIdBarang());
             selectedBarang.setNamaBrg(txtNamaBarang.getText().trim());
             selectedBarang.setHargaBeli(Integer.
                     valueOf(txtHrgBarang.getText().trim()));
@@ -168,17 +162,15 @@ public class AddBarangController implements Initializable {
             if (getBarangDao().updateData(selectedBarang) == 1) {
                 getBarangs().clear();
                 getBarangs().addAll(getBarangDao().showAllData());
-
                 tblVBarang.refresh();
-                //mengkosongkan teks field setelah isi data
-                txtKdBarang.clear();
-                txtNamaBarang.clear();
-                txtHrgBarang.clear();
-                txtHrgJual.clear();
-                txtJmlBarang.clear();
-                selectedBarang = null;
-
             }
+            //mengkosongkan teks field setelah isi data
+//          txtKdBarang.clear();
+            txtNamaBarang.clear();
+            txtHrgBarang.clear();
+            txtHrgJual.clear();
+            txtJmlBarang.clear();
+            selectedBarang = null;
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Silahkan ketik ulang");
@@ -202,12 +194,26 @@ public class AddBarangController implements Initializable {
         return barangs;
     }
 
+    @FXML
+    private void tblBrgOnClick(MouseEvent event) {
+        selectedBarang = tblVBarang.getSelectionModel().getSelectedItem();
+//        .setDisable(false);
+
+        if (selectedBarang != null) {
+            txtNamaBarang.setText(selectedBarang.getNamaBrg());
+            txtHrgBarang.setText(String.valueOf(selectedBarang.getHargaBeli()));
+            txtHrgJual.setText(String.
+                    valueOf(selectedBarang.HargaJualProperty()));
+            txtJmlBarang.setText(String.valueOf(selectedBarang.getStock()));
+        }
+
+    }
+
     public void setMainController(TampilanOwnerController mainController) {
-        //   categoryDao = new CategoryDaoImpl();
         this.mainController = mainController;
         tblVBarang.setItems(getBarangs());
-        colKdBarang.setCellValueFactory(p -> p.getValue().idBarangProperty().
-                asObject());
+//        colKdBarang.setCellValueFactory(p -> p.getValue().idBarangProperty().
+//                asObject());
         colNamaBarang.setCellValueFactory(p -> p.getValue().NamaBrgProperty());
         colHargaBrg.setCellValueFactory(p -> p.getValue().HargaBeliProperty().
                 asObject());
@@ -218,14 +224,14 @@ public class AddBarangController implements Initializable {
     }
 
     @FXML
-    private void tblBrgOnClick(MouseEvent event) {
+    private void btnBrgOnClick(MouseEvent event) {
         selectedBarang = tblVBarang.getSelectionModel().getSelectedItem();
         btnHapusItem.setDisable(false);
 
         if (selectedBarang != null) {
 
-            txtKdBarang.setDisable(true);
-            txtKdBarang.setText(String.valueOf(selectedBarang.getIdBarang()));
+//            txtKdBarang.setDisable(true);
+//            txtKdBarang.setText(String.valueOf(selectedBarang.getIdBarang()));
             txtNamaBarang.setText(selectedBarang.getNamaBrg());
             txtHrgBarang.setText(String.valueOf(selectedBarang.getHargaBeli()));
             txtHrgJual.setText(String.valueOf(selectedBarang.getHargaJual()));
@@ -234,4 +240,5 @@ public class AddBarangController implements Initializable {
         }
 
     }
+
 }

@@ -71,7 +71,6 @@ public class LoginController implements Initializable {
 
     @FXML
     private void btnLoginAction(ActionEvent event) throws IOException {
-        System.out.println(txtUsername.getText() + " " + txtPassword.getText());
         User user = new User();
         user.setIdUser(Integer.valueOf(txtUsername.getText()));
         user.setPassword(txtPassword.getText());

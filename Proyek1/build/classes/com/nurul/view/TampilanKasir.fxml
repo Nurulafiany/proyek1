@@ -7,9 +7,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nurul.controller.TampilanKasirController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1042.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nurul.controller.TampilanKasirController">
    <top>
-      <MenuBar BorderPane.alignment="CENTER">
+      <MenuBar style="-fx-background-color: #808080;" BorderPane.alignment="CENTER">
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
@@ -30,9 +30,9 @@
       </MenuBar>
    </top>
    <center>
-      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #D3D3D3;" BorderPane.alignment="CENTER">
          <children>
-            <GridPane prefHeight="653.0" prefWidth="1025.0" HBox.hgrow="ALWAYS">
+            <GridPane prefHeight="691.0" prefWidth="1042.0" HBox.hgrow="ALWAYS">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="505.3333435058594" minWidth="10.0" prefWidth="393.3333435058594" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="660.0" minWidth="10.0" prefWidth="630.6666564941406" />
@@ -40,7 +40,8 @@
               <rowConstraints>
                 <RowConstraints maxHeight="348.3333435058594" minHeight="10.0" prefHeight="228.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="399.0" minHeight="10.0" prefHeight="399.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="324.3333435058594" minHeight="10.0" prefHeight="117.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="324.3333435058594" minHeight="10.0" prefHeight="124.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="324.3333435058594" minHeight="10.0" prefHeight="52.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
                   <HBox prefHeight="228.0" prefWidth="460.0">
@@ -73,21 +74,21 @@
                                     <Insets left="5.0" />
                                  </padding>
                               </Label>
-                              <Label text="Masukkan Kode Item" GridPane.rowIndex="3">
+                              <Label text="Barang" GridPane.rowIndex="3">
                                  <padding>
                                     <Insets left="5.0" />
                                  </padding>
                               </Label>
-                              <TextField fx:id="txtNoTransaksi" GridPane.columnIndex="1" />
-                              <TextField fx:id="txtUsername" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <TextField fx:id="txtNoTransaksi" disable="true" GridPane.columnIndex="1" />
+                              <TextField fx:id="txtUserTr" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                               <Label text="Jumlah" GridPane.rowIndex="4">
                                  <padding>
                                     <Insets left="5.0" />
                                  </padding>
                               </Label>
-                              <DatePicker fx:id="txtdate" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <TextField fx:id="txtJumlah" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                              <TextField fx:id="txtKodeItem" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <TextField fx:id="txtJumlahTr" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <TextField fx:id="txtTanggal" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <ComboBox fx:id="cmbBoxBrg" prefHeight="25.0" prefWidth="257.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                            </children>
                         </GridPane>
                      </children>
@@ -120,22 +121,31 @@
                                     <Insets left="5.0" />
                                  </padding>
                               </Label>
-                              <TextField fx:id="txtTotal" disable="true" editable="false" prefHeight="108.0" prefWidth="550.0" GridPane.columnIndex="1" />
-                              <TextField fx:id="txtBayar" disable="true" editable="false" prefHeight="46.0" prefWidth="550.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <TextField fx:id="txtKembali" disable="true" editable="false" prefHeight="46.0" prefWidth="550.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <TextField fx:id="txtTotalTr" disable="true" editable="false" prefHeight="108.0" prefWidth="550.0" GridPane.columnIndex="1" />
+                              <TextField fx:id="txtBayarTr" disable="true" editable="false" prefHeight="46.0" prefWidth="550.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                 <GridPane.margin>
+                                    <Insets bottom="5.0" />
+                                 </GridPane.margin></TextField>
+                              <TextField fx:id="txtKembaliTr" disable="true" editable="false" prefHeight="46.0" prefWidth="550.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <padding>
+                                    <Insets bottom="5.0" />
+                                 </padding>
+                                 <GridPane.margin>
+                                    <Insets bottom="5.0" />
+                                 </GridPane.margin></TextField>
                            </children>
                         </GridPane>
                      </children>
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="1">
                      <children>
-                        <TableView prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                        <TableView fx:id="tblVTransaksi" prefHeight="399.0" prefWidth="989.0" HBox.hgrow="ALWAYS">
                           <columns>
-                            <TableColumn prefWidth="153.33334350585938" text="Kode" />
-                              <TableColumn prefWidth="308.3333435058594" text="Nama Item" />
-                              <TableColumn prefWidth="103.66665649414062" text="Jml" />
-                              <TableColumn prefWidth="170.99996948242188" text="Harga" />
-                              <TableColumn prefWidth="241.33334350585938" text="Total" />
+                            <TableColumn fx:id="colKdBrgTr" prefWidth="153.33334350585938" text="Kode Barang" />
+                              <TableColumn fx:id="colNmBrgTr" prefWidth="377.0" text="Nama Barang" />
+                              <TableColumn fx:id="colJmlTr" prefWidth="118.0" text="Jml" />
+                              <TableColumn fx:id="colHrgTr" prefWidth="167.0" text="Harga" />
+                              <TableColumn fx:id="colTotalTr" prefWidth="225.0" text="Total" />
                           </columns>
                         </TableView>
                      </children>
@@ -152,9 +162,9 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Button fx:id="btnTambahItem" mnemonicParsing="false" onAction="#btnTambahItemAction" text="Tambah Item" />
-                              <Button fx:id="btnHapusItem" mnemonicParsing="false" onAction="#btnHapusItemAction" text="Hapus Item" GridPane.rowIndex="1" />
-                              <Button fx:id="btnUpdateItem" mnemonicParsing="false" text="Update Item" GridPane.rowIndex="2" />
+                              <Button fx:id="btnTmbhIListTr" mnemonicParsing="false" onAction="#btnTambahItemAction" text="Tambah ke List" />
+                              <Button fx:id="btnHpsItemTr" mnemonicParsing="false" onAction="#btnHapusItemAction" text="Hapus Item" GridPane.rowIndex="1" />
+                              <Button fx:id="btnUpdtItemtr" mnemonicParsing="false" onAction="#btnUpdateItemAction" text="Update Item" GridPane.rowIndex="2" />
                            </children>
                         </GridPane>
                      </children>
@@ -173,8 +183,8 @@
                                     <Insets left="5.0" />
                                  </opaqueInsets>
                               </Label>
-                              <TextField fx:id="txtPembayaran" GridPane.columnIndex="1" />
-                              <TextField fx:id="txtKeterangan" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <TextField fx:id="txtPembayaranTr" prefHeight="53.0" prefWidth="457.0" GridPane.columnIndex="1" />
+                              <TextField fx:id="txtKeteranganTr" prefHeight="53.0" prefWidth="457.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                            </children>
                            <columnConstraints>
                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="306.66668701171875" minWidth="10.0" prefWidth="174.66668701171875" />
@@ -186,6 +196,19 @@
                            </rowConstraints>
                         </GridPane>
                      </children>
+                  </HBox>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <children>
+                        <Button fx:id="btnSubmitTr" mnemonicParsing="false" text="Submit">
+                           <HBox.margin>
+                              <Insets right="25.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="btnCancelTr" alignment="BASELINE_LEFT" mnemonicParsing="false" text="Cancel" />
+                     </children>
+                     <padding>
+                        <Insets right="10.0" />
+                     </padding>
                   </HBox>
                </children>
             </GridPane>

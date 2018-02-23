@@ -36,27 +36,19 @@ import javafx.stage.Stage;
 public class AddUserController implements Initializable {
 
     @FXML
-    private TextField txtKdUserUs;
-    @FXML
-    private TextField txtFullNameUs;
+    private TextField txtAlamatUs;
     @FXML
     private TextField txtEmailUs;
     @FXML
-    private Button btnTambahUser;
-    @FXML
-    private Button btnHapusUser;
-    @FXML
-    private Button btnUpdateUser;
-    @FXML
-    private TextField txtAlamatUs;
-    @FXML
     private TextField txtNoHP;
+    @FXML
+    private TextField txtFullNameUs;
     @FXML
     private PasswordField txtPasswordUs;
     @FXML
-    private TableView<User> tblVuser;
+    private ComboBox<Role> CBStatus;
     @FXML
-    private TableColumn<User, Integer> ColKdUser;
+    private TableView<User> tblVuser;
     @FXML
     private TableColumn<User, String> ColFullNameUs;
     @FXML
@@ -67,6 +59,14 @@ public class AddUserController implements Initializable {
     private TableColumn<User, String> ColPasswordUs;
     @FXML
     private TableColumn<User, String> ColEmailUs;
+    @FXML
+    private TableColumn<User, String> ColStatusUs;
+    @FXML
+    private Button btnTambahUser;
+    @FXML
+    private Button btnHapusUser;
+    @FXML
+    private Button btnUpdateUser;
 
     private ObservableList<User> users;
     private Stage userStage;
@@ -75,11 +75,6 @@ public class AddUserController implements Initializable {
     private RoleDaoImpl roleDao;
     public Role selectedRole;
     private TampilanOwnerController mainController;
-    @FXML
-    private ComboBox<Role> CBStatus;
-    @FXML
-    private TableColumn<User, String> ColStatusUs;
-
     private ObservableList<Role> roles;
 
     /**
@@ -88,10 +83,7 @@ public class AddUserController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         tblVuser.setItems(getUsers());
-//        CBStatus.setItems(getRoles());
-        ColKdUser.
-                setCellValueFactory(data -> data.getValue().idUserProperty().
-                asObject());
+        CBStatus.setItems(getRoles());
         ColFullNameUs.
                 setCellValueFactory(data -> data.getValue().NamaProperty());
         ColAlamatUs.
@@ -108,7 +100,7 @@ public class AddUserController implements Initializable {
                         TableColumn.CellDataFeatures<User, String> param)
                         -> new SimpleStringProperty(param.getValue().
                         getRole_idRole().getStatus()));
-        CBStatus.setItems(getRoles());
+
     }
 
     public ObservableList<User> getUsers() {
@@ -128,7 +120,6 @@ public class AddUserController implements Initializable {
     }
 
     public ObservableList<Role> getRoles() {
-
         if (roles == null) {
             roles = FXCollections.observableArrayList();
             roles.addAll(getRoleDao().showAllData());
@@ -144,10 +135,25 @@ public class AddUserController implements Initializable {
     }
 
     @FXML
-    private void btnTambahUserOnAction(ActionEvent event) {
+    private void tblUserOnClick(MouseEvent event) {
+        selectedUser = tblVuser.getSelectionModel().getSelectedItem();
+        btnHapusUser.setDisable(false);
 
+        if (selectedUser != null) {
+            txtFullNameUs.setText(selectedUser.getNama());
+            txtAlamatUs.setText(selectedUser.getAlamat());
+            txtNoHP.setText(selectedUser.getPhone_Number());
+            txtPasswordUs.setText(selectedUser.getPassword());
+            txtEmailUs.setText(selectedUser.getEmail());
+            CBStatus.setValue(selectedUser.getRole_idRole());
+        }
+
+    }
+
+    @FXML
+    private void btnTambahUserOnAction(ActionEvent event) {
         Utility utility = new Utility();
-        if (!utility.isEmptyField(txtKdUserUs, txtFullNameUs,
+        if (!utility.isEmptyField(txtFullNameUs,
                 txtAlamatUs, txtNoHP, txtPasswordUs, txtEmailUs)) {
             User user = new User();
             user.setNama(txtFullNameUs.getText().trim());
@@ -160,7 +166,6 @@ public class AddUserController implements Initializable {
                 getUsers().addAll(getUserDao().showAllData());
                 tblVuser.refresh();
             }
-            txtKdUserUs.clear();
             txtFullNameUs.clear();
             txtAlamatUs.clear();
             txtNoHP.clear();
@@ -175,7 +180,7 @@ public class AddUserController implements Initializable {
 
     @FXML
     private void btnHapusUserOnAction(ActionEvent event) {
-        if (!Utility.isEmptyField(txtKdUserUs, txtFullNameUs,
+        if (!Utility.isEmptyField(txtFullNameUs,
                 txtAlamatUs, txtNoHP, txtPasswordUs, txtEmailUs)) {
             selectedUser.setNama(txtFullNameUs.getText().trim());
             selectedUser.setAlamat(txtAlamatUs.getText().trim());
@@ -187,7 +192,6 @@ public class AddUserController implements Initializable {
                 getUsers().addAll(getUserDao().showAllData());
                 tblVuser.refresh();
             }
-            txtKdUserUs.clear();
             txtFullNameUs.clear();
             txtAlamatUs.clear();
             txtNoHP.clear();
@@ -202,7 +206,7 @@ public class AddUserController implements Initializable {
 
     @FXML
     private void btnUpdateUser(ActionEvent event) {
-        if (!Utility.isEmptyField(txtKdUserUs, txtFullNameUs,
+        if (!Utility.isEmptyField(txtFullNameUs,
                 txtAlamatUs, txtNoHP, txtPasswordUs, txtEmailUs)) {
             selectedUser.setIdUser(selectedUser.getIdUser());
             selectedUser.setNama(txtFullNameUs.getText().trim());
@@ -215,7 +219,6 @@ public class AddUserController implements Initializable {
                 getUsers().addAll(getUserDao().showAllData());
                 tblVuser.refresh();
             }
-            txtKdUserUs.clear();
             txtFullNameUs.clear();
             txtAlamatUs.clear();
             txtNoHP.clear();
@@ -232,8 +235,6 @@ public class AddUserController implements Initializable {
         //   categoryDao = new CategoryDaoImpl();
         this.mainController = mainController;
         tblVuser.setItems(getUsers());
-        ColKdUser.setCellValueFactory(p -> p.getValue().idUserProperty().
-                asObject());
         ColFullNameUs.setCellValueFactory(p -> p.getValue().NamaProperty());
         ColAlamatUs.setCellValueFactory(p -> p.getValue().AlamatProperty());
         ColNoHPUs.setCellValueFactory(p -> p.getValue().Phone_NumberProperty());
@@ -241,22 +242,4 @@ public class AddUserController implements Initializable {
         ColEmailUs.setCellValueFactory(p -> p.getValue().EmailProperty());
     }
 
-    @FXML
-    private void tblUserOnClick(MouseEvent event) {
-        selectedUser = tblVuser.getSelectionModel().getSelectedItem();
-        btnHapusUser.setDisable(false);
-
-        if (selectedUser != null) {
-
-            txtKdUserUs.setDisable(true);
-            txtKdUserUs.setText(String.valueOf(selectedUser.getIdUser()));
-            txtFullNameUs.setText(selectedUser.getNama());
-            txtAlamatUs.setText(selectedUser.getAlamat());
-            txtNoHP.setText(selectedUser.getPhone_Number());
-            txtPasswordUs.setText(selectedUser.getPassword());
-            txtEmailUs.setText(selectedUser.getEmail());
-            CBStatus.setValue(selectedUser.getRole_idRole());
-        }
-
-    }
 }
