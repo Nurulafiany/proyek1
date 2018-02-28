@@ -24,15 +24,11 @@ public class LaporanController implements Initializable {
     @FXML
     private ComboBox<?> cmbSort;
     @FXML
-    private DatePicker dtTanggal;
-    @FXML
     private Button btnSimpanLap;
     @FXML
-    private Button btnHapusLap;
+    private DatePicker datepickDari;
     @FXML
-    private Button btnUpdateLap;
-    @FXML
-    private Button btnCetakLap;
+    private DatePicker datepickerSampai;
 
     /**
      * Initializes the controller class.
@@ -47,15 +43,12 @@ public class LaporanController implements Initializable {
     }
 
     @FXML
-    private void btnHapusLapAction(ActionEvent event) {
+    private void DariOnAction(ActionEvent event) {
     }
 
     @FXML
-    private void btnUpdateLapAction(ActionEvent event) {
+    private void SampaiOnAction(ActionEvent event) {
     }
 
-    @FXML
-    private void btnCetakLapAction(ActionEvent event) {
-    }
     
 }

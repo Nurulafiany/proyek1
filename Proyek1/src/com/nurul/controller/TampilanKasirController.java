@@ -13,15 +13,20 @@ import com.nurul.entity.Cart;
 import com.nurul.entity.Detail_Transaksi;
 import com.nurul.entity.Transaksi;
 import com.nurul.entity.User;
+import com.nurul.utility.Koneksi;
 import com.nurul.utility.Utility;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -33,6 +38,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  * FXML Controller class
@@ -380,6 +389,36 @@ public class TampilanKasirController implements Initializable {
                     Utility.showAlert("Infomasi", "Kembalian : Rp" + String.
                             valueOf(kembalian),
                             Alert.AlertType.INFORMATION);
+
+                    int Kembali = Integer.valueOf(txtPembayaranTr.getText())
+                            - Integer.valueOf(txtTotalTr.getText());
+                    int TotalHarga = Integer.valueOf(txtPembayaranTr.getText());
+
+                    Task<Void> task = new Task<Void>() {
+                        @Override
+                        protected Void call() throws Exception {
+                            try {
+                                HashMap parameters = new HashMap();
+                                parameters.put("TotalHarga", TotalHarga);
+                                parameters.put("Kembali", Kembali);
+                                JasperPrint jasperPrint = JasperFillManager.
+                                        fillReport(
+                                                "report/NotaPenjualan.jasper",
+                                                parameters, Koneksi.
+                                                createConnection());
+                                JasperViewer jasperViewer = new JasperViewer(
+                                        jasperPrint, false);
+                                jasperViewer.setVisible(true);
+                            } catch (JRException ex) {
+                                System.out.println(ex);
+                            }
+                            return null;
+                        }
+                    };
+                    ExecutorService service = Executors.newCachedThreadPool();
+                    service.execute(task);
+                    service.shutdown();
+
                     setTransaksi(null);
                     carts.clear();
 
