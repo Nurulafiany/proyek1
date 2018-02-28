@@ -54,7 +54,6 @@
                           <rowConstraints>
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
@@ -64,31 +63,25 @@
                                     <Insets left="5.0" />
                                  </padding>
                               </Label>
-                              <Label text="User" GridPane.rowIndex="1">
+                              <Label text="Tanggal" GridPane.rowIndex="1">
                                  <padding>
                                     <Insets left="5.0" />
                                  </padding>
                               </Label>
-                              <Label text="Tanggal" GridPane.rowIndex="2">
-                                 <padding>
-                                    <Insets left="5.0" />
-                                 </padding>
-                              </Label>
-                              <Label text="Barang" GridPane.rowIndex="3">
+                              <Label text="Barang" GridPane.rowIndex="2">
                                  <padding>
                                     <Insets left="5.0" />
                                  </padding>
                               </Label>
                               <TextField fx:id="txtNoTransaksi" disable="true" GridPane.columnIndex="1" />
-                              <TextField fx:id="txtUserTr" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <Label text="Jumlah" GridPane.rowIndex="4">
+                              <Label text="Jumlah" GridPane.rowIndex="3">
                                  <padding>
                                     <Insets left="5.0" />
                                  </padding>
                               </Label>
-                              <TextField fx:id="txtJumlahTr" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                              <TextField fx:id="txtTanggal" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <ComboBox fx:id="cmbBoxBrg" prefHeight="25.0" prefWidth="257.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <TextField fx:id="txtJumlahTr" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <TextField fx:id="txtTanggal" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <ComboBox fx:id="cmbBoxBrg" prefHeight="25.0" prefWidth="257.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                            </children>
                         </GridPane>
                      </children>
@@ -139,7 +132,7 @@
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="1">
                      <children>
-                        <TableView fx:id="tblVTransaksi" prefHeight="399.0" prefWidth="989.0" HBox.hgrow="ALWAYS">
+                        <TableView fx:id="tblVTransaksi" onMouseClicked="#tblTrOnClicked" prefHeight="399.0" prefWidth="989.0" HBox.hgrow="ALWAYS">
                           <columns>
                             <TableColumn fx:id="colKdBrgTr" prefWidth="153.33334350585938" text="Kode Barang" />
                               <TableColumn fx:id="colNmBrgTr" prefWidth="377.0" text="Nama Barang" />
@@ -178,13 +171,7 @@
                                     <Insets left="5.0" />
                                  </opaqueInsets>
                               </Label>
-                              <Label text="Keterangan" GridPane.rowIndex="1">
-                                 <opaqueInsets>
-                                    <Insets left="5.0" />
-                                 </opaqueInsets>
-                              </Label>
                               <TextField fx:id="txtPembayaranTr" prefHeight="53.0" prefWidth="457.0" GridPane.columnIndex="1" />
-                              <TextField fx:id="txtKeteranganTr" prefHeight="53.0" prefWidth="457.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                            </children>
                            <columnConstraints>
                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="306.66668701171875" minWidth="10.0" prefWidth="174.66668701171875" />
@@ -192,19 +179,18 @@
                            </columnConstraints>
                            <rowConstraints>
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                         </GridPane>
                      </children>
                   </HBox>
                   <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <children>
-                        <Button fx:id="btnSubmitTr" mnemonicParsing="false" text="Submit">
+                        <Button fx:id="btnSubmitTr" mnemonicParsing="false" onMouseClicked="#btnSubmitOnCLicked" text="Submit">
                            <HBox.margin>
                               <Insets right="25.0" />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="btnCancelTr" alignment="BASELINE_LEFT" mnemonicParsing="false" text="Cancel" />
+                        <Button fx:id="btnCancelTr" alignment="BASELINE_LEFT" mnemonicParsing="false" onMouseClicked="#btnCancelOnClicked" text="Cancel" />
                      </children>
                      <padding>
                         <Insets right="10.0" />

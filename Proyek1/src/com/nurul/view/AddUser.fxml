@@ -89,12 +89,11 @@
                      <children>
                         <TableView fx:id="tblVuser" onMouseClicked="#tblUserOnClick" prefHeight="181.0" prefWidth="1036.0">
                            <columns>
-                              <TableColumn fx:id="ColFullNameUs" prefWidth="216.33334350585938" text="Full Name" />
-                              <TableColumn fx:id="ColAlamatUs" prefWidth="310.0" text="Alamat" />
-                              <TableColumn fx:id="ColNoHPUs" prefWidth="77.0" text="No.Hp" />
-                              <TableColumn fx:id="ColPasswordUs" prefWidth="114.0" text="Password" />
-                              <TableColumn fx:id="ColEmailUs" prefWidth="189.0" text="Email" />
-                              <TableColumn fx:id="ColStatusUs" prefWidth="116.0" text="Status" />
+                              <TableColumn fx:id="ColFullNameUs" prefWidth="196.0" text="Full Name" />
+                              <TableColumn fx:id="ColAlamatUs" prefWidth="316.0" text="Alamat" />
+                              <TableColumn fx:id="ColNoHPUs" prefWidth="179.0" text="No.Hp" />
+                              <TableColumn fx:id="ColEmailUs" prefWidth="220.0" text="Email" />
+                              <TableColumn fx:id="ColStatusUs" prefWidth="112.0" text="Status" />
                            </columns>
                         </TableView>
                      </children>
@@ -110,7 +109,7 @@
                               </HBox>
                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
                                  <children>
-                                    <Button fx:id="btnHapusUser" mnemonicParsing="false" onAction="#btnHapusUserOnAction" text="hapus User" />
+                                    <Button fx:id="btnHapusUser" mnemonicParsing="false" onAction="#btnHapusUserOnAction" text="Hapus User" />
                                  </children>
                               </HBox>
                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2">

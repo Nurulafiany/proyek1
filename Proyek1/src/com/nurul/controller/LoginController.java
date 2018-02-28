@@ -40,6 +40,14 @@ public class LoginController implements Initializable {
     private Button btnLogin;
     @FXML
     private BorderPane bpLogin;
+    private User user;
+
+    public UserDaoImpl getUserDaoImpl() {
+        return userDaoImpl;
+    }
+
+    private UserDaoImpl userDao;
+    private ObservableList<User> users;
 
     private UserDaoImpl userDaoImpl;
 
@@ -51,9 +59,7 @@ public class LoginController implements Initializable {
         // TODO
     }
 
-    public ObservableList<User> users;
-
-    public ObservableList<User> geUsers() {
+    public ObservableList<User> getUsers() {
         if (users == null) {
             users = FXCollections.observableArrayList();
             users.addAll(getUserDao().showAllData());
@@ -69,6 +75,13 @@ public class LoginController implements Initializable {
         return userDaoImpl;
     }
 
+    public User getUser() {
+        if (user == null) {
+            user = new User();
+        }
+        return user;
+    }
+
     @FXML
     private void btnLoginAction(ActionEvent event) throws IOException {
         User user = new User();
@@ -78,6 +91,7 @@ public class LoginController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("Login Berhasil.");
             alert.showAndWait();
+            setUser(getUserDao().getData(user));
 
             // Pembeda antara Owner dengan Kasir
             if (getUserDao().getData(user).getRole_idRole().getIdRole() == 1) {
@@ -99,6 +113,8 @@ public class LoginController implements Initializable {
                 BorderPane pane = loader.load();
                 Scene scene = new Scene(pane);
                 Stage secondStage = new Stage();
+                TampilanKasirController controller = loader.getController();
+                controller.setLoginController(this, getUser());
                 secondStage.setScene(scene);
                 secondStage.setTitle("Cashier Form");
                 secondStage.show();
@@ -112,4 +128,9 @@ public class LoginController implements Initializable {
             alert.showAndWait();
         }
     }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
 }

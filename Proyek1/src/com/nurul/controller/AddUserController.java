@@ -82,6 +82,7 @@ public class AddUserController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
         tblVuser.setItems(getUsers());
         CBStatus.setItems(getRoles());
         ColFullNameUs.
@@ -90,7 +91,7 @@ public class AddUserController implements Initializable {
                 setCellValueFactory(data -> data.getValue().AlamatProperty());
         ColNoHPUs.
                 setCellValueFactory(data -> data.getValue().
-                Phone_NumberProperty());
+                        Phone_NumberProperty());
         ColPasswordUs.
                 setCellValueFactory(data -> data.getValue().PasswordProperty());
         ColEmailUs.
@@ -99,7 +100,7 @@ public class AddUserController implements Initializable {
                 setCellValueFactory((
                         TableColumn.CellDataFeatures<User, String> param)
                         -> new SimpleStringProperty(param.getValue().
-                        getRole_idRole().getStatus()));
+                                getRole_idRole().getStatus()));
 
     }
 
@@ -161,16 +162,21 @@ public class AddUserController implements Initializable {
             user.setPhone_Number(txtNoHP.getText().trim());
             user.setPassword(txtPasswordUs.getText().trim());
             user.setEmail(txtEmailUs.getText().trim());
+            user.setRole_idRole(CBStatus.getValue());
+            //(CBStatus.getValue().getIdRole());
+
             if (getUserDao().addData(user) == 1) {
                 getUsers().clear();
                 getUsers().addAll(getUserDao().showAllData());
                 tblVuser.refresh();
+
+                txtFullNameUs.clear();
+                txtAlamatUs.clear();
+                txtNoHP.clear();
+                txtPasswordUs.clear();
+                txtEmailUs.clear();
+                CBStatus.setValue(null);
             }
-            txtFullNameUs.clear();
-            txtAlamatUs.clear();
-            txtNoHP.clear();
-            txtPasswordUs.clear();
-            txtEmailUs.clear();
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Field masih ada yang kosong");
@@ -191,12 +197,14 @@ public class AddUserController implements Initializable {
                 getUsers().clear();
                 getUsers().addAll(getUserDao().showAllData());
                 tblVuser.refresh();
+
+                txtFullNameUs.clear();
+                txtAlamatUs.clear();
+                txtNoHP.clear();
+                txtPasswordUs.clear();
+                txtEmailUs.clear();
+                CBStatus.setValue(null);
             }
-            txtFullNameUs.clear();
-            txtAlamatUs.clear();
-            txtNoHP.clear();
-            txtPasswordUs.clear();
-            txtEmailUs.clear();
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Field masih ada yang kosong");
@@ -208,7 +216,6 @@ public class AddUserController implements Initializable {
     private void btnUpdateUser(ActionEvent event) {
         if (!Utility.isEmptyField(txtFullNameUs,
                 txtAlamatUs, txtNoHP, txtPasswordUs, txtEmailUs)) {
-            selectedUser.setIdUser(selectedUser.getIdUser());
             selectedUser.setNama(txtFullNameUs.getText().trim());
             selectedUser.setAlamat(txtAlamatUs.getText().trim());
             selectedUser.setPhone_Number(txtNoHP.getText().trim());
@@ -224,6 +231,8 @@ public class AddUserController implements Initializable {
             txtNoHP.clear();
             txtPasswordUs.clear();
             txtEmailUs.clear();
+            selectedUser = null;
+
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Field masih ada yang kosong");
@@ -240,6 +249,22 @@ public class AddUserController implements Initializable {
         ColNoHPUs.setCellValueFactory(p -> p.getValue().Phone_NumberProperty());
         ColPasswordUs.setCellValueFactory(p -> p.getValue().PasswordProperty());
         ColEmailUs.setCellValueFactory(p -> p.getValue().EmailProperty());
+        ColStatusUs.setCellValueFactory(p -> p.getValue().getRole_idRole().
+                StatusProperty());
     }
 
+//    @FXML
+//    private void tableAddOwnerOnClick(MouseEvent event) {
+//        selectedUser = tabelAddUser.getSelectionModel().getSelectedItem();
+//        btnHapus.setDisable(false);
+//
+//        if (selectedUser != null) {
+//            txtNama.setText(selectedUser.getNama());
+//            txtPassword.setText(String.valueOf(selectedUser.getPassword()));
+//            txtAlamat.setText(String.valueOf(selectedUser.getAlamat()));
+//
+//            System.out.println(selectedUser.getNama());
+//            cmbStatus.setValue(selectedUser.getRole());
+//        }
+//    }
 }

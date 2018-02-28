@@ -30,17 +30,31 @@ public class Transaksi {
     public IntegerProperty idTransaksiProperty() {
         return idTransaksi;
     }
-    private final IntegerProperty User_idUser = new SimpleIntegerProperty();
+//    private final IntegerProperty User_idUser = new SimpleIntegerProperty();
+//
+//    public Integer getUser_idUser() {
+//        return User_idUser.get();
+//    }
+//
+//    public void setUser_idUser(Integer value) {
+//        User_idUser.set(value);
+//    }
+//
+//    public IntegerProperty User_idUserProperty() {
+//        return User_idUser;
+//    }
+    private final ObjectProperty<User> User_idUser
+            = new SimpleObjectProperty<>();
 
-    public Integer getUser_idUser() {
+    public User getUser_idUser() {
         return User_idUser.get();
     }
 
-    public void setUser_idUser(Integer value) {
+    public void setUser_idUser(User value) {
         User_idUser.set(value);
     }
 
-    public IntegerProperty User_idUserProperty() {
+    public ObjectProperty User_idUserProperty() {
         return User_idUser;
     }
 
@@ -76,7 +90,7 @@ public class Transaksi {
     public Transaksi() {
     }
 
-    public Transaksi(int idTransaksi, int User_idUser, int pembayaran,
+    public Transaksi(int idTransaksi, User User_idUser, int pembayaran,
             Timestamp Tanggal) {
         this.setIdTransaksi(idTransaksi);
         this.setUser_idUser(User_idUser);

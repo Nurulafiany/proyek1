@@ -16,20 +16,21 @@ import javafx.beans.property.SimpleObjectProperty;
  */
 public class Detail_Transaksi {
 
-    private final IntegerProperty Transaksi_idTransaksi
-            = new SimpleIntegerProperty();
+    private final ObjectProperty<Transaksi> Transaksi_idTransaksi
+            = new SimpleObjectProperty<>();
 
-    public int getTransaksi_idTransaksi() {
+    public Transaksi getTransaksi_idTransaksi() {
         return Transaksi_idTransaksi.get();
     }
 
-    public void setTransaksi_idTransaksi(int value) {
+    public void setTransaksi_idTransaksi(Transaksi value) {
         Transaksi_idTransaksi.set(value);
     }
 
-    public IntegerProperty Transaksi_idTransaksiProperty() {
+    public ObjectProperty Transaksi_idTransaksiProperty() {
         return Transaksi_idTransaksi;
     }
+
     private final IntegerProperty QtyBarang = new SimpleIntegerProperty();
 
     public int getQtyBarang() {
@@ -105,19 +106,19 @@ public class Detail_Transaksi {
 //    public void setHargaJual(Double HargaJual) {
 //        this.HargaJual = HargaJual;
 //    }
-    private final ObjectProperty<Barang> barang_IdBarang
+    private final ObjectProperty<Barang> Barang_idBarang
             = new SimpleObjectProperty<>();
 
-    public Barang getBarang_IdBarang() {
-        return barang_IdBarang.get();
+    public Barang getBarang_idBarang() {
+        return Barang_idBarang.get();
     }
 
-    public void setBarang_IdBarang(Barang value) {
-        barang_IdBarang.set(value);
+    public void setBarang_idBarang(Barang value) {
+        Barang_idBarang.set(value);
     }
 
-    public ObjectProperty barang_IdBarangProperty() {
-        return barang_IdBarang;
+    public ObjectProperty Barang_idBarangProperty() {
+        return Barang_idBarang;
     }
 
 }

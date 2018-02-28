@@ -5,6 +5,7 @@
  */
 package com.nurul.utility;
 
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 
 /**
@@ -21,4 +22,28 @@ public class Utility {
         }
         return false;
     }
+
+    public static final boolean isNumber(String number) {
+        try {
+            Integer.parseInt(number);
+        } catch (NumberFormatException numberFormatException) {
+            showAlert("Not a number", "Your input is not a number",
+                    Alert.AlertType.ERROR);
+            return false;
+        }
+        return true;
+    }
+
+    public static void showAlert(String header,
+            String content, Alert.AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setContentText(content);
+        alert.setHeaderText(header);
+        alert.showAndWait();
+    }
+//
+//    public static int StoI(String s) {
+//        return Integer.valueOf(s);
+//
+//    }
 }

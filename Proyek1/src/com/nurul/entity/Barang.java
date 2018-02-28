@@ -141,4 +141,15 @@ public class Barang {
 //    public void setStock(int Stock) {
 //        this.Stock = Stock;
 //    }
+    public Barang() {
+    }
+
+    public Barang(int idBarang) {
+        this.setIdBarang(idBarang);
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(getIdBarang()) + " - " + getNamaBrg();
+    }
 }

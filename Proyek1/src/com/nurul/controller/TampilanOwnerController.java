@@ -8,6 +8,7 @@ package com.nurul.controller;
 import com.nurul.MainApp;
 import com.nurul.dao.BarangDaoImpl;
 import com.nurul.entity.Barang;
+import com.nurul.entity.User;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
@@ -85,6 +86,10 @@ public class TampilanOwnerController implements Initializable {
         } catch (Exception e) {
             System.out.println(e.toString());
         }
+    }
+
+    public User getSelectedUser() {
+        return getSelectedUser();
     }
 
     @FXML

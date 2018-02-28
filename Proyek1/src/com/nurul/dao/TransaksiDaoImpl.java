@@ -6,6 +6,7 @@
 package com.nurul.dao;
 
 import com.nurul.entity.Transaksi;
+import com.nurul.entity.User;
 import com.nurul.utility.DaoService;
 import com.nurul.utility.Koneksi;
 import java.sql.Connection;
@@ -16,6 +17,8 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  *
@@ -31,15 +34,15 @@ public class TransaksiDaoImpl implements DaoService<Transaksi> {
             try (Connection connection = Koneksi.createConnection()) {
                 connection.setAutoCommit(false);
                 String query
-                        = "INSERT INTO Transaksi(idTransaksi,Tanggal,pembayaran,User_idUser) VALUES (?,?,?)";
+                        = "INSERT INTO Transaksi(idTransaksi,pembayaran,User_idUser) VALUES (?,?,?)";
                 PreparedStatement ps = connection.prepareStatement(query);
                 ps.setInt(1, object.getIdTransaksi());
-                ps.setTimestamp(2, t);
-                ps.setInt(3, object.getPembayaran());
-                ps.setInt(4, object.getUser_idUser());
+//                ps.setTimestamp(2, t);
+                ps.setInt(2, object.getPembayaran());
+                ps.setInt(3, object.getUser_idUser().getIdUser());
                 if (ps.executeUpdate() != 0) {
                     connection.commit();
-
+                    result = 1;
                 } else {
                     connection.rollback();
                 }
@@ -64,7 +67,31 @@ public class TransaksiDaoImpl implements DaoService<Transaksi> {
 
     @Override
     public List<Transaksi> showAllData() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ObservableList<Transaksi> trsks = FXCollections.observableArrayList();
+        try {
+            try (Connection connection = Koneksi.createConnection()) {
+                String query
+                        = "SELECT tr.idTransaksi, tr.pembayaran, tr.Tanggal, tr.User_idUser FROM transaksi tr JOIN User u ON tr.User_idUser = u.idUser";
+                PreparedStatement ps = connection.prepareStatement(query);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    Transaksi tr = new Transaksi();
+                    tr.setIdTransaksi(rs.getInt("tr.idTransaksi"));
+                    tr.setTanggal(rs.getTimestamp("tr.Tanggal"));
+                    tr.setPembayaran(rs.getInt("tr.pembayaran"));
+
+                    User user = new User();
+                    user.setIdUser(rs.getInt("tr.User_idUser"));
+//                    user.setNama(rs.getString("u.Nama"));
+                    tr.setUser_idUser(user);
+                    trsks.add(tr);
+                }
+
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            System.out.println(ex);
+        }
+        return trsks;
 
     }
 
@@ -74,19 +101,24 @@ public class TransaksiDaoImpl implements DaoService<Transaksi> {
         try (Connection connection = Koneksi.createConnection()) {
             connection.setAutoCommit(false);
             String query
-                    = "SELECT idTransaksi, Tanggal, pembayaran, User_idUser FROM Transaksi tk JOIN User u ON tk.User_idUser = u.idUser Where idTransaksi = ?";
+                    = "SELECT idTransaksi, Tanggal, pembayaran, User_idUser, u.Nama FROM Transaksi tk JOIN User u ON tk.User_idUser = u.idUser Where idTransaksi = ?";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, id.getIdTransaksi());
             ps.setTimestamp(2, t);
             ps.setInt(3, id.getPembayaran());
-            ps.setInt(4, id.getUser_idUser());
+            ps.setInt(4, id.getUser_idUser().getIdUser());
+            ps.setString(5, id.getUser_idUser().getNama());
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 Transaksi tr = new Transaksi();
                 tr.setIdTransaksi(rs.getInt("tr.idTransaksi"));
-                //    tr.setTanggal(rs.getTimestamp("tr.Tanggal"));
+                tr.setTanggal(rs.getTimestamp("tr.Tanggal"));
                 tr.setPembayaran(rs.getInt("tr.pembayaran"));
-                tr.setUser_idUser(rs.getInt("tr.User_idUser"));
+
+                User user = new User();
+                user.setIdUser(rs.getInt("User_idUser"));
+                user.setNama(rs.getString("u.Nama"));
+                tr.setUser_idUser(user);
 
                 return tr;
             }

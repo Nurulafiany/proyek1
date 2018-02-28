@@ -74,13 +74,13 @@ public class AddBarangController implements Initializable {
                 setCellValueFactory(data -> data.getValue().NamaBrgProperty());
         colHargaBrg.
                 setCellValueFactory(data -> data.getValue().
-                HargaBeliProperty().asObject());
+                        HargaBeliProperty().asObject());
         colHargaJual.
                 setCellValueFactory(data -> data.getValue().
-                HargaJualProperty().asObject());
+                        HargaJualProperty().asObject());
         colJmlBrg.
                 setCellValueFactory(data -> data.getValue().
-                StockProperty().asObject());
+                        StockProperty().asObject());
     }
 
     @FXML
@@ -100,12 +100,12 @@ public class AddBarangController implements Initializable {
                 getBarangs().clear();
                 getBarangs().addAll(getBarangDao().showAllData());
                 tblVBarang.refresh();
+                txtNamaBarang.clear();
+                txtHrgBarang.clear();
+                txtHrgJual.clear();
+                txtJmlBarang.clear();
             }
-//            txtKdBarang.clear();
-            txtNamaBarang.clear();
-            txtHrgBarang.clear();
-            txtHrgJual.clear();
-            txtJmlBarang.clear();
+
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Field masih ada yang kosong");
@@ -130,15 +130,15 @@ public class AddBarangController implements Initializable {
                 getBarangs().clear();
                 getBarangs().addAll(getBarangDao().showAllData());
                 tblVBarang.refresh();
+                //            mengkosongkan teks field setelah isi data
+//            txtKdBarang.clear();
+                txtNamaBarang.clear();
+                txtHrgBarang.clear();
+                txtHrgJual.clear();
+                txtJmlBarang.clear();
 
             }
 
-//            mengkosongkan teks field setelah isi data
-//            txtKdBarang.clear();
-            txtNamaBarang.clear();
-            txtHrgBarang.clear();
-            txtHrgJual.clear();
-            txtJmlBarang.clear();
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Pilih barang terlebih dahulu");
@@ -203,7 +203,7 @@ public class AddBarangController implements Initializable {
             txtNamaBarang.setText(selectedBarang.getNamaBrg());
             txtHrgBarang.setText(String.valueOf(selectedBarang.getHargaBeli()));
             txtHrgJual.setText(String.
-                    valueOf(selectedBarang.HargaJualProperty()));
+                    valueOf(selectedBarang.getHargaJual()));
             txtJmlBarang.setText(String.valueOf(selectedBarang.getStock()));
         }
 
