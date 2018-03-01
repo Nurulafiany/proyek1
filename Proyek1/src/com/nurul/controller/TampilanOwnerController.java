@@ -29,8 +29,8 @@ import javafx.stage.Stage;
  * @author Nurul
  */
 public class TampilanOwnerController implements Initializable {
-
-    private AddBarangController addBrg;
+//
+//    private AddBarangController addBrg;
 
     @FXML
     private Button btnAddBarang;
@@ -103,8 +103,8 @@ public class TampilanOwnerController implements Initializable {
                         "view/AddUser.fxml"));
                 BorderPane root = loader.load();
                 Scene scene = new Scene(root);
-                AddUserController addUsr = loader.getController();
-                addUsr.setMainController(this);
+                AddUserController addUserController = loader.getController();
+                addUserController.setMainController(this);
                 userStage.setScene(scene);
                 userStage.initOwner(borderPane.getScene().getWindow());
                 userStage.initModality(Modality.WINDOW_MODAL);
@@ -121,30 +121,29 @@ public class TampilanOwnerController implements Initializable {
 
     @FXML
     private void btnLaporanAction(ActionEvent event) {
-//        Task<Void> task = new Task<Void>() {
-//            @Override
-//            protected Void call() throws Exception {
-//                try {
-//                    HashMap parameters = new HashMap();
-//                    JasperPrint jasperPrint = JasperFillManager.fillReport(
-//                            "report/Demo_Report1.jasper",
-//                            parameters, Koneksi.createConnection());
-//                    JasperViewer jasperViewer = new JasperViewer(jasperPrint,
-//                            false);
-//                    jasperViewer.setVisible(true);
-//                } catch (ClassNotFoundException | SQLException | JRException ex) {
-//                    Logger.getLogger(TampilanOwnerController.class.getName()).
-//                            log(
-//                                    Level.SEVERE, null, ex);
-//                    ViewUtil.showAlert(Alert.AlertType.ERROR, "Error", ex.
-//                            getMessage());
-//                }
-//                return null;
-//            }
-//        };
-//        ExecutorService service = Executors.newCachedThreadPool();
-//        service.execute(task);
-//        service.shutdown();
+        try {
+            if (userStage == null) {
+                userStage = new Stage();
+                userStage.setTitle("Report Management");
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(MainApp.class.getResource(
+                        "view/Laporan.fxml"));
+                BorderPane root = loader.load();
+                Scene scene = new Scene(root);
+                LaporanController laporanController = loader.getController();
+                laporanController.setMainController(this);
+                userStage.setScene(scene);
+                userStage.initOwner(borderPane.getScene().getWindow());
+                userStage.initModality(Modality.WINDOW_MODAL);
+            }
+            if (!userStage.isShowing()) {
+                userStage.show();
+            } else {
+                userStage.toFront();
+            }
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
     }
 
 }

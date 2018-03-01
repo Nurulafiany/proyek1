@@ -72,17 +72,16 @@
                               </Label>
                               <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="5" GridPane.rowIndex="1">
                                  <children>
-                                    <TableView prefHeight="514.0" prefWidth="992.0">
+                                    <TableView fx:id="tblVLaporan" prefHeight="514.0" prefWidth="992.0">
                                       <columns>
-                                        <TableColumn prefWidth="36.0" text="No." />
-                                        <TableColumn prefWidth="150.0" text="Tanggal" />
-                                          <TableColumn prefWidth="109.0" text="No.Transaksi" />
-                                          <TableColumn prefWidth="89.0" text="Kode Brg" />
-                                          <TableColumn prefWidth="169.0" text="Nama Brg" />
-                                          <TableColumn prefWidth="63.0" text="Jumlah" />
-                                          <TableColumn prefWidth="95.0" text="Harga Beli" />
-                                          <TableColumn prefWidth="111.0" text="Harga Jual" />
-                                          <TableColumn prefWidth="170.0" text="Total" />
+                                        <TableColumn fx:id="colTglLaporan" prefWidth="150.0" text="Tanggal" />
+                                          <TableColumn fx:id="colNoTrLap" prefWidth="109.0" text="No.Transaksi" />
+                                          <TableColumn fx:id="colKDBrglap" prefWidth="89.0" text="Kode Brg" />
+                                          <TableColumn fx:id="colnamabrglap" prefWidth="169.0" text="Nama Brg" />
+                                          <TableColumn fx:id="colJmlLap" prefWidth="63.0" text="Jumlah" />
+                                          <TableColumn fx:id="colHrgBeliLap" prefWidth="121.0" text="Harga Beli" />
+                                          <TableColumn fx:id="colHrgJualLap" prefWidth="133.0" text="Harga Jual" />
+                                          <TableColumn fx:id="colTotLap" prefWidth="158.0" text="Total" />
                                       </columns>
                                        <padding>
                                           <Insets top="5.0" />

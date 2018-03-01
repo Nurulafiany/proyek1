@@ -31,7 +31,7 @@ import javafx.stage.Stage;
 /**
  * FXML Controller class
  *
- * @author Nurul
+ * @author ASUS
  */
 public class AddUserController implements Initializable {
 
@@ -56,8 +56,6 @@ public class AddUserController implements Initializable {
     @FXML
     private TableColumn<User, String> ColNoHPUs;
     @FXML
-    private TableColumn<User, String> ColPasswordUs;
-    @FXML
     private TableColumn<User, String> ColEmailUs;
     @FXML
     private TableColumn<User, String> ColStatusUs;
@@ -73,7 +71,6 @@ public class AddUserController implements Initializable {
     private UserDaoImpl userDao;
     public User selectedUser;
     private RoleDaoImpl roleDao;
-    public Role selectedRole;
     private TampilanOwnerController mainController;
     private ObservableList<Role> roles;
 
@@ -82,7 +79,6 @@ public class AddUserController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
         tblVuser.setItems(getUsers());
         CBStatus.setItems(getRoles());
         ColFullNameUs.
@@ -92,8 +88,6 @@ public class AddUserController implements Initializable {
         ColNoHPUs.
                 setCellValueFactory(data -> data.getValue().
                         Phone_NumberProperty());
-        ColPasswordUs.
-                setCellValueFactory(data -> data.getValue().PasswordProperty());
         ColEmailUs.
                 setCellValueFactory(data -> data.getValue().EmailProperty());
         ColStatusUs.
@@ -101,7 +95,6 @@ public class AddUserController implements Initializable {
                         TableColumn.CellDataFeatures<User, String> param)
                         -> new SimpleStringProperty(param.getValue().
                                 getRole_idRole().getStatus()));
-
     }
 
     public ObservableList<User> getUsers() {
@@ -148,7 +141,6 @@ public class AddUserController implements Initializable {
             txtEmailUs.setText(selectedUser.getEmail());
             CBStatus.setValue(selectedUser.getRole_idRole());
         }
-
     }
 
     @FXML
@@ -247,24 +239,9 @@ public class AddUserController implements Initializable {
         ColFullNameUs.setCellValueFactory(p -> p.getValue().NamaProperty());
         ColAlamatUs.setCellValueFactory(p -> p.getValue().AlamatProperty());
         ColNoHPUs.setCellValueFactory(p -> p.getValue().Phone_NumberProperty());
-        ColPasswordUs.setCellValueFactory(p -> p.getValue().PasswordProperty());
         ColEmailUs.setCellValueFactory(p -> p.getValue().EmailProperty());
         ColStatusUs.setCellValueFactory(p -> p.getValue().getRole_idRole().
                 StatusProperty());
     }
 
-//    @FXML
-//    private void tableAddOwnerOnClick(MouseEvent event) {
-//        selectedUser = tabelAddUser.getSelectionModel().getSelectedItem();
-//        btnHapus.setDisable(false);
-//
-//        if (selectedUser != null) {
-//            txtNama.setText(selectedUser.getNama());
-//            txtPassword.setText(String.valueOf(selectedUser.getPassword()));
-//            txtAlamat.setText(String.valueOf(selectedUser.getAlamat()));
-//
-//            System.out.println(selectedUser.getNama());
-//            cmbStatus.setValue(selectedUser.getRole());
-//        }
-//    }
 }

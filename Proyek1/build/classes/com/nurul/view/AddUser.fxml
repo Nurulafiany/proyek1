@@ -104,7 +104,7 @@
                            <children>
                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                  <children>
-                                    <Button fx:id="btnTambahUser" mnemonicParsing="false" onAction="#btnTambahUserOnAction" text="Tambah User" />
+                                    <Button fx:id="btnTambahUser" mnemonicParsing="false" onAction="#btnTambahUserOnAction" prefHeight="31.0" prefWidth="135.0" text="Tambah User" />
                                  </children>
                               </HBox>
                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
