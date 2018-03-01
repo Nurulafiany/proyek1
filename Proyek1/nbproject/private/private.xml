@@ -4,8 +4,9 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/E:/github/proyek1/Proyek1/src/com/nurul/controller/TampilanOwnerController.java</file>
-            <file>file:/E:/github/proyek1/Proyek1/src/com/nurul/view/AddUser.fxml</file>
+            <file>file:/E:/github/proyek1/Proyek1/src/com/nurul/dao/UserDaoImpl.java</file>
             <file>file:/E:/github/proyek1/Proyek1/src/com/nurul/controller/AddUserController.java</file>
+            <file>file:/E:/github/proyek1/Proyek1/src/com/nurul/controller/LaporanController.java</file>
         </group>
     </open-files>
 </project-private>

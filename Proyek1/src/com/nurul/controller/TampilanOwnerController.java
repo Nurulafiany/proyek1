@@ -18,7 +18,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -37,8 +36,6 @@ public class TampilanOwnerController implements Initializable {
     @FXML
     private Button btnAddUser;
     @FXML
-    private Label lblNama;
-    @FXML
     private Button btnLaporan;
 
     @FXML
@@ -52,6 +49,7 @@ public class TampilanOwnerController implements Initializable {
 
     private Stage barangStage;
     private Stage userStage;
+    private Stage laporanStage;
 
     /**
      * Initializes the controller class.
@@ -122,9 +120,9 @@ public class TampilanOwnerController implements Initializable {
     @FXML
     private void btnLaporanAction(ActionEvent event) {
         try {
-            if (userStage == null) {
-                userStage = new Stage();
-                userStage.setTitle("Report Management");
+            if (laporanStage == null) {
+                laporanStage = new Stage();
+                laporanStage.setTitle("Report Management");
                 FXMLLoader loader = new FXMLLoader();
                 loader.setLocation(MainApp.class.getResource(
                         "view/Laporan.fxml"));
@@ -132,14 +130,14 @@ public class TampilanOwnerController implements Initializable {
                 Scene scene = new Scene(root);
                 LaporanController laporanController = loader.getController();
                 laporanController.setMainController(this);
-                userStage.setScene(scene);
-                userStage.initOwner(borderPane.getScene().getWindow());
-                userStage.initModality(Modality.WINDOW_MODAL);
+                laporanStage.setScene(scene);
+                laporanStage.initOwner(borderPane.getScene().getWindow());
+                laporanStage.initModality(Modality.WINDOW_MODAL);
             }
-            if (!userStage.isShowing()) {
-                userStage.show();
+            if (!laporanStage.isShowing()) {
+                laporanStage.show();
             } else {
-                userStage.toFront();
+                laporanStage.toFront();
             }
         } catch (Exception e) {
             System.out.println(e.toString());
